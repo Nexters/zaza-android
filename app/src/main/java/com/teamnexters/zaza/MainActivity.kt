@@ -1,6 +1,6 @@
 package com.teamnexters.zaza
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 //가즈아
 class MainActivity : AppCompatActivity() {
