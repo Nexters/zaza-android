@@ -1,8 +1,8 @@
 package com.teamnexters.zaza
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-//가즈아
+import androidx.appcompat.app.AppCompatActivity
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
