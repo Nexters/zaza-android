@@ -20,6 +20,11 @@
         <activity android:name=".MainActivity">
 
         </activity>
+        <receiver android:name=".util.alarm.AlarmReceiver">
+            <intent-filter>
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

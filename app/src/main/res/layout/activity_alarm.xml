@@ -7,11 +7,13 @@
         <variable name="alarm" type="com.teamnexters.zaza.ui.alarm.AlarmActivity"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_alarm_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.alarm.AlarmActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view_time_sleep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +50,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_time"
+            android:id="@+id/view_time_wake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -86,10 +88,71 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view_time">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/view_time_sleep">
 
+        <CheckBox
+                android:id="@+id/btn_week_mon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="M"/>
+        <CheckBox
+                android:id="@+id/btn_week_tue"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="T"/>
+        <CheckBox
+                android:id="@+id/btn_week_wed"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="W"/>
+        <CheckBox
+                android:id="@+id/btn_week_thu"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="T"/>
+        <CheckBox
+                android:id="@+id/btn_week_fri"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="F"/>
+
+        <CheckBox
+                android:id="@+id/btn_week_sat"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="S"/>
+        <CheckBox
+                android:id="@+id/btn_week_sun"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="false"
+                android:text="S"/>
 
     </LinearLayout>
+
+    <EditText
+            android:id="@+id/et_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST TEST"
+            android:inputType="none"
+            app:layout_constraintBottom_toTopOf="@id/btn_alarm_edit"/>
+
+    <Button
+            android:id="@+id/btn_alarm_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알람 수정"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
 
 

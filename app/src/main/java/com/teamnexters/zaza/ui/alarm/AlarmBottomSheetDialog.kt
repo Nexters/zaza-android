@@ -11,14 +11,11 @@ import com.teamnexters.zaza.R
 import com.teamnexters.zaza.databinding.ActivityAlarmBinding
 import com.teamnexters.zaza.databinding.DialogAlarmBottomSheetBinding
 
-class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener{
+object AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener{
 
     private lateinit var binding: DialogAlarmBottomSheetBinding
     private var layoutRes = getLayoutRes()
 
-    fun getInstance(): AlarmBottomSheetDialog{
-        return AlarmBottomSheetDialog()
-    }
 
     override fun onClick(v: View?) {
     }
