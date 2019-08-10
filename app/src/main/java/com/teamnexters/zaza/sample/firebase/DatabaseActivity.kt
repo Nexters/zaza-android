@@ -36,6 +36,7 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
 
     private fun getDreams(uuid:String){
         var sortByDatetiem = database.child("dream").child(uuid).orderByChild("datetime")
+        //TODO: To be add a function that get all data from realtime database in firebase.
         sortByDatetiem.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 db_list_tv.setText("[Added]" + dataSnapshot.toString())
