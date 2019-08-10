@@ -2,9 +2,7 @@ package com.teamnexters.zaza.ui.dream
 
 
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.media.Image
+import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -26,5 +24,14 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         date?.text = dreamitem.date
+
+        itemView.setOnClickListener{
+            val detailIntent = Intent(context, DreamDetailActivity::class.java)
+            detailIntent.putExtra("Date", dreamitem.date)
+            detailIntent.putExtra("Img", dreamitem.photo)
+            context.startActivity(detailIntent)
+        }
     }
+
+
 }

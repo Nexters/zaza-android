@@ -12,10 +12,10 @@
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:listitem="@layout/item_dream"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
-            android:clipToPadding="false"
             android:id="@+id/rv_dreams"
-            />
+    />
 
 </RelativeLayout>

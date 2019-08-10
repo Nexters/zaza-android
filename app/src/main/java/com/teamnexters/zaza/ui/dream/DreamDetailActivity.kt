@@ -2,6 +2,7 @@ package com.teamnexters.zaza.ui.dream
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.teamnexters.zaza.R
 
 class DreamDetailActivity : AppCompatActivity() {
 
