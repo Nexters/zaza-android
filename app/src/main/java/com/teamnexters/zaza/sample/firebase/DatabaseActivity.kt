@@ -8,7 +8,7 @@ import com.teamnexters.zaza.databinding.ActivityDatabaseBinding
 import com.teamnexters.zaza.sample.firebase.models.Dream
 import kotlinx.android.synthetic.main.activity_database.*
 import java.util.UUID
-
+//push test
 class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_database
