@@ -11,11 +11,6 @@
             android:theme="@style/AppTheme">
         <activity android:name=".sample.firebase.DatabaseActivity">
         </activity>
-        <activity
-                android:name=".sample.firebase.DatabaseTest"
-                android:label="@string/title_activity_database_test"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <activity android:name=".ui.dream.DreamActivity">
         </activity>
         <activity android:name=".ui.alarm.AlarmActivity">
