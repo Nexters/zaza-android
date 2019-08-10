@@ -8,6 +8,7 @@ import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.ui.dream.DreamActivity
+import com.teamnexters.zaza.sample.firebase.DatabaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -32,7 +33,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         button_sample.setOnClickListener {
 //            sampleViewModel.getName().value = "Sample!!!!"
-            sampleViewModel.nameTag.value = "Sample!!!!"
+//            sampleViewModel.nameTag.value = "Sample!!!!"
+            val nextIntent = Intent(this, DatabaseActivity::class.java)
+            startActivity(nextIntent)
         }
         btn_dream.setOnClickListener {
             val sampleIntent = Intent(this, DreamActivity::class.java)
