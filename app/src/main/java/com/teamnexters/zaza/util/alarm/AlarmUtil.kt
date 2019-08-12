@@ -4,18 +4,23 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import com.teamnexters.zaza.ui.alarm.vo.AlarmVO
 import java.time.DayOfWeek
 import java.util.*
+import kotlin.math.min
 
 class AlarmUtil {
-    fun registAlarm(context:Context, weeks: Array<Boolean>, isVibrate: Boolean, isOneMore: Boolean, sleepTime: Date, wakeTime: Date){
+    fun registAlarm(context:Context,alarmVO: AlarmVO){
+
+        val sleepTime = getTime(alarmVO.sleepH, alarmVO.sleepM)
+        val wakeTime = getTime(alarmVO.wakeUpH, alarmVO.wakeUpM)
 
         val intent = Intent(context, AlarmReceiver()::class.java)
-        intent.putExtra("vibrate", isVibrate)
-        intent.putExtra("oneMore", isOneMore)
+        intent.putExtra("vibrate", alarmVO.isVibrate)
+        intent.putExtra("oneMore", alarmVO.isAfterFive)
+        intent.putExtra("isRingtone", false)
 
-        val alarmManager  = context.getSystemService(Context.ALARM_SERVICE)
-        for(i in weeks.indices){
+        for(i in alarmVO.weeks.indices){
             val calendar = Calendar.getInstance()
             var code = 0
             //Sun = 1, Mon = 2 ... Sat = 7
@@ -29,12 +34,13 @@ class AlarmUtil {
                 5 -> code = Calendar.SATURDAY
             }
             /**
-             * 취침 알람 rquestId는 Calendar의 날짜 변수로 설정하고 기상 알람은 *2로 설정한다
+             * 취침 알람 rquestId는 Calendar의 날짜 변수로 설정하고 기상 알람은 *10로 설정한다
              */
             cancleAlarm(code, context)
             cancleAlarm(code*2, context);
 
-            if(weeks[i]) {
+            if(alarmVO.weeks[i]) {
+                val calendar = Calendar.getInstance()
                 if (calendar.get(Calendar.DAY_OF_WEEK) == code && calendar.after(sleepTime)) {
                     calendar.add(Calendar.DATE, 7);
                 } else {
@@ -45,27 +51,43 @@ class AlarmUtil {
                     }
                 }
 
-                if (sleepTime.before(wakeTime)) {
-                    /**
-                     * 같은 하루에 기상 & 취침 알람 설정
-                     */
+                val c = Calendar.getInstance()
+                c.timeInMillis = sleepTime.time
+                calendar.set(Calendar.HOUR, c.get(Calendar.HOUR))
+                calendar.set(Calendar.MINUTE, c.get(Calendar.MINUTE))
+                setTriggerTime(context, calendar, intent, code)
 
-
-                } else {
-
+                c.timeInMillis = wakeTime.time
+                calendar.set(Calendar.HOUR, c.get(Calendar.HOUR))
+                calendar.set(Calendar.MINUTE, c.get(Calendar.MINUTE))
+                if (!sleepTime.before(wakeTime)) {
                     /**
                      * 다음 날 기상 알람 설정
                      */
-
+                    calendar.add(Calendar.DAY_OF_WEEK,1)
                 }
+                setTriggerTime(context, calendar, intent, code*10)
+
             }
 
         }
 
     }
 
-    fun setTriggerTime(){
+    fun getTime( hour: Int, minute: Int): Date{
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR, hour)
+        calendar.set(Calendar.MINUTE, minute)
 
+        return calendar.time
+    }
+
+    fun setTriggerTime(context: Context, time :Calendar, intent: Intent, requestId: Int){
+
+        val alarmManager  = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = getPendingIntent(intent, requestId, context)
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time.timeInMillis, pendingIntent)
     }
 
     fun getPendingIntent(intent: Intent, requestId :Int, context: Context): PendingIntent{
