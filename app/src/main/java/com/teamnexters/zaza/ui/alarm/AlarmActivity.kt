@@ -33,26 +33,26 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
         if (isEditable){
             viewDataBinding.viewAlarmBg.setBackgroundColor(Color.BLACK)
             viewDataBinding.btnAlarmEdit.visibility= View.GONE
-            viewDataBinding.btnWeekFri.isClickable = true
-            viewDataBinding.btnWeekMon.isClickable = true
-            viewDataBinding.btnWeekSat.isClickable = true
-            viewDataBinding.btnWeekTue.isClickable = true
-            viewDataBinding.btnWeekSun.isClickable = true
-            viewDataBinding.btnWeekThu.isClickable = true
-            viewDataBinding.btnWeekWed.isClickable = true
+//            viewDataBinding.btnWeekFri.isClickable = true
+//            viewDataBinding.btnWeekMon.isClickable = true
+//            viewDataBinding.btnWeekSat.isClickable = true
+//            viewDataBinding.btnWeekTue.isClickable = true
+//            viewDataBinding.btnWeekSun.isClickable = true
+//            viewDataBinding.btnWeekThu.isClickable = true
+//            viewDataBinding.btnWeekWed.isClickable = true
 
             viewDataBinding.viewTimeSleep.isClickable = true
             viewDataBinding.viewTimeWake.isClickable = true
         } else{
             viewDataBinding.viewAlarmBg.setBackgroundColor(Color.WHITE)
             viewDataBinding.btnAlarmEdit.visibility= View.VISIBLE
-            viewDataBinding.btnWeekFri.isClickable = false
-            viewDataBinding.btnWeekMon.isClickable = false
-            viewDataBinding.btnWeekSat.isClickable = false
-            viewDataBinding.btnWeekTue.isClickable = false
-            viewDataBinding.btnWeekSun.isClickable = false
-            viewDataBinding.btnWeekThu.isClickable = false
-            viewDataBinding.btnWeekWed.isClickable = false
+//            viewDataBinding.btnWeekFri.isClickable = false
+//            viewDataBinding.btnWeekMon.isClickable = false
+//            viewDataBinding.btnWeekSat.isClickable = false
+//            viewDataBinding.btnWeekTue.isClickable = false
+//            viewDataBinding.btnWeekSun.isClickable = false
+//            viewDataBinding.btnWeekThu.isClickable = false
+//            viewDataBinding.btnWeekWed.isClickable = false
 
             viewDataBinding.viewTimeSleep.isClickable = false
             viewDataBinding.viewTimeWake.isClickable = false

@@ -8,6 +8,14 @@
         android:layout_gravity="center_horizontal"
         tools:context=".ui.dream.DreamActivity">
 
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tb_dream_main"
+    >
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -16,6 +24,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
             android:id="@+id/rv_dreams"
+            android:layout_below="@id/tb_dream_main"
     />
 
 </RelativeLayout>
