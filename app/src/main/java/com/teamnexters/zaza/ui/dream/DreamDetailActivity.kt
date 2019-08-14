@@ -4,11 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream_detail.*
 
 class DreamDetailActivity : AppCompatActivity() {
+
+    // customized dialog 띄울 때 사용
+    lateinit var custom_dialog:CustomDrDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +38,17 @@ class DreamDetailActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_delete -> {
-                Toast.makeText(this, "Delete Click", Toast.LENGTH_SHORT).show()
+               clickDelete()
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun clickDelete(){
+        custom_dialog = CustomDrDialog(this)
+
+        custom_dialog.show()
+
     }
 }
