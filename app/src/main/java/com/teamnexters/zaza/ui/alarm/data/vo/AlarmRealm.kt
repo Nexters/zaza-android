@@ -1,12 +1,11 @@
-package com.teamnexters.zaza.ui.alarm.vo
+package com.teamnexters.zaza.ui.alarm.data.vo
 
+import io.realm.RealmList
 import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
-import java.util.*
 
-open class AlarmVO(
+open class AlarmRealm(
     var id: Int,
-    var weeks: Array<Boolean>,
+    var weeks: RealmList<Boolean>,
     var isVibrate: Boolean,
     var isAfterFive: Boolean,
     var wakeUpH: Int,
@@ -16,7 +15,7 @@ open class AlarmVO(
 ) : RealmObject() {
     constructor(): this(
         id = 0,
-        weeks = Array(7, {i -> false}),
+        weeks = RealmList(),
         isAfterFive = false,
         isVibrate = false,
         wakeUpH = 0,

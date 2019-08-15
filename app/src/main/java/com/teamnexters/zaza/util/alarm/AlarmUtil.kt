@@ -4,23 +4,22 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.teamnexters.zaza.ui.alarm.vo.AlarmVO
-import java.time.DayOfWeek
+import com.teamnexters.zaza.ui.alarm.data.vo.AlarmRealm
+import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
 import java.util.*
-import kotlin.math.min
 
 class AlarmUtil {
-    fun registAlarm(context:Context,alarmVO: AlarmVO){
+    fun registAlarm(context:Context, alarmRealm: AlarmVO){
 
-        val sleepTime = getTime(alarmVO.sleepH, alarmVO.sleepM)
-        val wakeTime = getTime(alarmVO.wakeUpH, alarmVO.wakeUpM)
+        val sleepTime = getTime(alarmRealm.sleepH, alarmRealm.sleepM)
+        val wakeTime = getTime(alarmRealm.wakeUpH, alarmRealm.wakeUpM)
 
         val intent = Intent(context, AlarmReceiver()::class.java)
-        intent.putExtra("vibrate", alarmVO.isVibrate)
-        intent.putExtra("oneMore", alarmVO.isAfterFive)
+        intent.putExtra("vibrate", alarmRealm.isVibrate)
+        intent.putExtra("oneMore", alarmRealm.isAfterFive)
         intent.putExtra("isRingtone", false)
 
-        for(i in alarmVO.weeks.indices){
+        for(i in alarmRealm.weeks.indices){
             val calendar = Calendar.getInstance()
             var code = 0
             //Sun = 1, Mon = 2 ... Sat = 7
@@ -39,7 +38,7 @@ class AlarmUtil {
             cancleAlarm(code, context)
             cancleAlarm(code*2, context);
 
-            if(alarmVO.weeks[i]) {
+            if(alarmRealm.weeks[i]!!) {
                 val calendar = Calendar.getInstance()
                 if (calendar.get(Calendar.DAY_OF_WEEK) == code && calendar.after(sleepTime)) {
                     calendar.add(Calendar.DATE, 7);

@@ -1,25 +1,33 @@
 package com.teamnexters.zaza.ui.alarm
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.teamnexters.zaza.base.BaseViewModel
-import com.teamnexters.zaza.sample.DisposableViewModel
-import com.teamnexters.zaza.sample.Sample
-import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.ui.alarm.repository.AlarmRepositoryImpl
+import com.teamnexters.zaza.ui.alarm.data.vo.AlarmRealm
+import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
+import com.teamnexters.zaza.ui.alarm.usecase.GetAlarm
+import io.reactivex.schedulers.Schedulers
 
 class AlarmViewModel: BaseViewModel() {
 
-//    var weeks : MutableLiveData<List<Boolean>>
+    val TAG = "AlarmViewMoel"
+    val mutableAlarmData = MutableLiveData<AlarmVO>()
     private val repository =  AlarmRepositoryImpl()
+
     init {
-
-
+        Log.e(TAG, "ViewMoel init")
+        GetAlarm(repository, Schedulers.io())(
+            success = { alarm ->
+                mutableAlarmData.value = alarm
+                Log.e(TAG, mutableAlarmData.toString());
+            },
+            error = { t->
+                Log.e(TAG, t.toString());
+            }
+        )
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
+
+
 }
