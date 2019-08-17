@@ -1,5 +1,4 @@
 package com.teamnexters.zaza.ui.alarm.repository
-
 import com.teamnexters.zaza.ui.alarm.data.AlarmDataSource
 import com.teamnexters.zaza.ui.alarm.data.AlarmDataSourceImpl
 import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO

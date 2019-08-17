@@ -35,12 +35,14 @@
             android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/tp_alamr">
         <Button
+                android:id="@+id/btn_dialog_alarm_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="취소"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         <Button
+                android:id="@+id/btn_dialog_alarm_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저장"

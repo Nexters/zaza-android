@@ -20,7 +20,6 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val resourceId = context.resources.getIdentifier(dreamitem.photo, "drawable", context.packageName)
             img?.setImageResource(resourceId)
         }else{
-            img?.setImageResource(R.drawable.loading)
         }
 
         date?.text = dreamitem.date

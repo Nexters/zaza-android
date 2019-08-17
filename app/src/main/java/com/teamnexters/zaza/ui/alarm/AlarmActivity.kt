@@ -27,9 +27,11 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
     }
 
     val alarmUtil = AlarmUtil.instance
+    lateinit var alarmDialog: AlarmBottomSheetDialog
 
     fun initStartView() {
 
+        alarmDialog = AlarmBottomSheetDialog.instance
 
     }
 
@@ -53,10 +55,10 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
                     6 -> viewDataBinding.checkWeekSun.isChecked = alarm.weeks[i]
                 }
             }
-            viewDataBinding.tvSleepHour.text = alarm.sleepH.toString()
-            viewDataBinding.tvSleepMinute.text = alarm.sleepM.toString()
-            viewDataBinding.tvWakeHour.text = alarm.wakeUpH.toString()
-            viewDataBinding.tvWakeMinute.text = alarm.wakeUpM.toString()
+            viewDataBinding.tvSleepHour.text = String.format("%02d",alarm.sleepH)
+            viewDataBinding.tvSleepMinute.text = String.format("%02d", alarm.sleepM)
+            viewDataBinding.tvWakeHour.text = String.format("%02d",alarm.wakeUpH)
+            viewDataBinding.tvWakeMinute.text = String.format("%02d",alarm.wakeUpM)
             viewDataBinding.checkFive.isChecked = alarm.isAfterFive
             viewDataBinding.chckVibrate.isChecked = alarm.isVibrate
 
@@ -68,7 +70,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
     fun setOnOff(isEditable : Boolean){
         if (isEditable){
             viewDataBinding.viewBtns.visibility = View.VISIBLE
-            viewDataBinding.btnAlarmEdit.visibility= View.GONE
+
             viewDataBinding.checkWeekFri.isClickable = true
             viewDataBinding.checkWeekMon.isClickable = true
             viewDataBinding.checkWeekSat.isClickable = true
@@ -77,12 +79,12 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
             viewDataBinding.checkWeekThu.isClickable = true
             viewDataBinding.checkWeekWed.isClickable = true
 
+
             viewDataBinding.viewTimeSleep.isClickable = true
             viewDataBinding.viewTimeWake.isClickable = true
         } else{
             viewDataBinding.viewBtns.visibility = View.GONE
             viewDataBinding.viewAlarmBg.setBackgroundColor(Color.WHITE)
-            viewDataBinding.btnAlarmEdit.visibility= View.VISIBLE
             viewDataBinding.checkWeekFri.isClickable = false
             viewDataBinding.checkWeekMon.isClickable = false
             viewDataBinding.checkWeekSat.isClickable = false
@@ -90,6 +92,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
             viewDataBinding.checkWeekSun.isClickable = false
             viewDataBinding.checkWeekThu.isClickable = false
             viewDataBinding.checkWeekWed.isClickable = false
+
 
             viewDataBinding.viewTimeSleep.isClickable = false
             viewDataBinding.viewTimeWake.isClickable = false
@@ -104,17 +107,17 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
      */
 
     fun initAfterBinding() {
-        viewDataBinding.btnAlarmEdit.setOnClickListener {
-            setOnOff(true)
-        }
+
+        alarmDialog.setActivityBinding(viewDataBinding)
 
         viewDataBinding.viewTimeSleep.setOnClickListener{
-            val bottomSheetDialog = AlarmBottomSheetDialog
-            bottomSheetDialog.show(supportFragmentManager, "bottomSheet")
+            alarmDialog.show(supportFragmentManager, "sleep")
+        }
+        viewDataBinding.viewTimeWake.setOnClickListener{
+            alarmDialog.show(supportFragmentManager, "wake")
         }
 
         viewDataBinding.btnSaveAlarm.setOnClickListener{
-            setOnOff(false)
             val weeks = ArrayList<Boolean>()
 
             weeks.add(viewDataBinding.checkWeekMon.isChecked)
@@ -130,6 +133,10 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
                 viewDataBinding.tvSleepHour.text.toString().toInt(), viewDataBinding.tvSleepMinute.text.toString().toInt())
             alarmVM.updateAlarm(alarmVO)
             alarmUtil.registAlarm(this, alarmVO)
+        }
+
+        viewDataBinding.btnCancelAlarm.setOnClickListener{
+            finish()
         }
 
 
