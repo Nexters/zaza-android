@@ -74,7 +74,6 @@ class DreamActivity : AppCompatActivity() {
                     }
                 }
                 else -> {
-                    Toast.makeText(this,"$resultCode", Toast.LENGTH_SHORT).show()
                 }
             }
         }

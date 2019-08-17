@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/civ_dream"
                 android:layout_centerInParent="true"
-        />
+                />
 
     </com.teamnexters.zaza.ui.dream.SquareRelativeLayout>
 

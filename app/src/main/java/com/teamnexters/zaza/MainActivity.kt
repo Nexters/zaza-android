@@ -11,6 +11,7 @@ import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.DatabaseActivity
+import com.teamnexters.zaza.ui.dream.DreamActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,8 +45,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             startActivity(nextIntent)
         }
         button_dream.setOnClickListener {
-//            val sampleIntent = Intent(this, DreamActivity::class.java)
-//            startActivity(sampleIntent)
+            val sampleIntent = Intent(this, DreamActivity::class.java)
+            startActivity(sampleIntent)
         }
 
         @SuppressLint("HandlerLeak")
