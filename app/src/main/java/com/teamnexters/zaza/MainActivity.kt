@@ -7,6 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override val layoutResourceId: Int
@@ -52,6 +54,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPref : SharedPreferences = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+        val appUuid = sharedPref.getString("UUID", null)
+        if (appUuid == null) {
+            Log.d("MAIN", "The uuid will be generated.")
+            val editor = sharedPref.edit()
+            editor.putString("UUID", UUID.randomUUID().toString())
+            editor.apply()
+        } else {
+            Log.d("MAIN", "The uuid already has been generated.")
+            Log.d("MAIN", appUuid)
+        }
 
         image_main_dream.setOnClickListener(this)
         text_main_dream.setOnClickListener(this)
