@@ -10,6 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".ui.dream.DreamDetailActivity">
+        </activity>
         <activity android:name=".sample.firebase.DatabaseActivity">
         </activity>
         <activity android:name=".ui.dream.DreamActivity">

@@ -1,6 +1,6 @@
 package com.teamnexters.zaza.ui.alarm.repository
 
-import com.teamnexters.zaza.ui.alarm.vo.AlarmVO
+//import com.teamnexters.zaza.ui.alarm.vo.AlarmVO
 import io.reactivex.Single
 
 interface AlarmRepository {
