@@ -9,12 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.dream.DreamDetailActivity">
+        <activity android:name=".ui.dream.DreamDetailActivity" />
         <activity android:name=".sample.firebase.DatabaseActivity">
         </activity>
         <activity android:name=".ui.dream.DreamActivity">
-        </activity>
-        <activity android:name=".ui.alarm.AlarmActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
