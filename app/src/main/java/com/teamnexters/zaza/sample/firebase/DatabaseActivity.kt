@@ -39,7 +39,9 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
         val user = Dream(datetime, during, remark)
         database.child("dream").child(uuid).child(UUID.randomUUID().toString()).setValue(user)
     }
-
+    private fun deleteDreams(uuid_1:String, uuid_2:String) {
+        database.child("dream").child(uuid_1).child(uuid_2).removeValue()
+    }
     private fun getDreams(uuid:String){
         var sortByDatetiem = database.child("dream").orderByKey().equalTo(uuid)
 
@@ -51,7 +53,9 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var DreamList = ArrayList<String>()
+
                 for (dsp in dataSnapshot.getChildren()) {
+
                     DreamList.add(dsp.toString())
                 }
 

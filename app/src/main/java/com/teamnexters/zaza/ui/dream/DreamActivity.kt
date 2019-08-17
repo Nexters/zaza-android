@@ -13,17 +13,14 @@ import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream.*
 
 class DreamActivity : AppCompatActivity() {
-    private val Delete_Requst = 3000
     var dreamList = arrayListOf<DreamItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream)
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-        setSupportActionBar(tb_dream_main)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+
 
         dreamList.add(DreamItem("loading", "August 11"))
         dreamList.add(DreamItem("loading", "August 12"))
