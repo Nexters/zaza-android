@@ -12,6 +12,7 @@ import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.DatabaseActivity
+import com.teamnexters.zaza.sample.firebase.ImageActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         button_sample.setOnClickListener {
 //            sampleViewModel.getName().value = "Sample!!!!"
 //            sampleViewModel.nameTag.value = "Sample!!!!"
-            val nextIntent = Intent(this, DatabaseActivity::class.java)
+            val nextIntent = Intent(this, ImageActivity::class.java)
             startActivity(nextIntent)
         }
         button_dream.setOnClickListener {

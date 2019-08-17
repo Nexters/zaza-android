@@ -51,7 +51,9 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var DreamList = ArrayList<String>()
+
                 for (dsp in dataSnapshot.getChildren()) {
+
                     DreamList.add(dsp.toString())
                 }
 
