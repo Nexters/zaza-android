@@ -1,7 +1,12 @@
 package com.teamnexters.zaza
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -20,12 +25,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, SensorEventListener {
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        //
+    }
+
+    override fun onSensorChanged(p0: SensorEvent?) {
+        Log.v("Main","\n* * * wow x: ${p0!!.values[0]} // y : ${p0!!.values[1]} // z : ${p0!!.values[2]}")
+    }
 
     override val layoutResourceId: Int
         get() = R.layout.activity_main
 
     lateinit var sampleViewModel: SampleViewModel
+    lateinit var sensorManager: SensorManager
+    lateinit var sensorEventListener: SensorEventListener
+    lateinit var gyro: Sensor
     var handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +80,43 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 handler.sendEmptyMessage(0)
             }
         }
+
+        // 센서 매니저 생성
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        // 자이로 센서 등록
+        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY).let {
+            this.gyro = it
+        }
+        // 센서 이벤트 리스너
+        sensorEventListener = object : SensorEventListener {
+            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+                //
+            }
+
+            override fun onSensorChanged(p0: SensorEvent?) {
+                when (p0!!.sensor.type) {
+                    Sensor.TYPE_GRAVITY -> {
+                        Log.v("Main","\n* * * x: ${p0!!.values[0]} // y : ${p0!!.values[1]} // z : ${p0!!.values[2]}")
+                        if (p0!!.values[2] < 0) {
+                            // 휴대폰 뒤집었을 때
+                        } else {
+                            // 휴대폰 원상태
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(sensorEventListener, gyro, SensorManager.SENSOR_DELAY_UI)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(sensorEventListener)
     }
 
     override fun onClick(p0: View?) {
