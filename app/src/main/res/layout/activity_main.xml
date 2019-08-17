@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -23,7 +24,7 @@
                 android:layout_marginStart="27dp"
                 android:padding="10dp"
                 android:text="zaza"
-                android:textColor="#696d74"
+                android:textColor="@color/gray"
                 android:textSize="25sp"
                 android:fontFamily="@font/gilroy_bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -99,5 +100,20 @@
                 app:layout_constraintStart_toStartOf="@id/image_main_dream"
                 app:layout_constraintEnd_toEndOf="@id/image_main_dream"/>
 
+        <TextView
+                android:id="@+id/text_main_sleep_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="38dp"
+                android:gravity="center"
+                android:text="@string/sleep_mode_bottom_guide"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"
+                tools:textColor="@color/black"/>
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

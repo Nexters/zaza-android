@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Message
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.teamnexters.zaza.base.BaseActivity
@@ -25,15 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, SensorEventListener {
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        //
-    }
-
-    override fun onSensorChanged(p0: SensorEvent?) {
-        Log.v("Main","\n* * * wow x: ${p0!!.values[0]} // y : ${p0!!.values[1]} // z : ${p0!!.values[2]}")
-    }
-
+class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override val layoutResourceId: Int
         get() = R.layout.activity_main
 
@@ -41,7 +34,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     lateinit var sensorManager: SensorManager
     lateinit var sensorEventListener: SensorEventListener
     lateinit var gyro: Sensor
+
+    var openDialogStatus = false
     var handler = Handler()
+    var sleepReadyDialog = SleepReadyDialog.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,16 +93,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
                 when (p0!!.sensor.type) {
                     Sensor.TYPE_GRAVITY -> {
                         Log.v("Main","\n* * * x: ${p0!!.values[0]} // y : ${p0!!.values[1]} // z : ${p0!!.values[2]}")
-                        if (p0!!.values[2] < 0) {
+                        if (openDialogStatus == true && p0!!.values[2] < 0) {
                             // 휴대폰 뒤집었을 때
+                            onSleepMode()
                         } else {
-                            // 휴대폰 원상태
+                            finishSleepMode()
                         }
                     }
                 }
             }
-
         }
+    }
+
+    fun onSleepMode() {
+        sleepReadyDialog.dismissAllowingStateLoss()
+        layout_main_root.background = ContextCompat.getDrawable(this, R.drawable.bg_gradient_black)
+        image_main_alarm.visibility = View.GONE
+        text_main_alarm.visibility = View.GONE
+        image_main_dream.visibility = View.GONE
+        text_main_dream.visibility = View.GONE
+        text_main_sleep_guide.visibility = View.VISIBLE
+        image_main_onoff.setImageResource(R.drawable.off_switch_btn)
+        text_main_logo.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        window.statusBarColor = ContextCompat.getColor(this, R.color.gray_dark)
+    }
+
+    fun finishSleepMode() {
+        layout_main_root.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        image_main_alarm.visibility = View.VISIBLE
+        text_main_alarm.visibility = View.VISIBLE
+        image_main_dream.visibility = View.VISIBLE
+        text_main_dream.visibility = View.VISIBLE
+        text_main_sleep_guide.visibility = View.GONE
+        image_main_onoff.setImageResource(R.drawable.on_switch)
+        text_main_logo.setTextColor(ContextCompat.getColor(this, R.color.gray))
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
     }
 
     override fun onResume() {
@@ -130,8 +151,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
                 startActivity(nextIntent)
             }
             image_main_onoff -> {
-                Log.v("Main", "image_main_onoff")
-                SleepReadyDialog.getInstance().show(supportFragmentManager, "SleepReadyDialog")
+                openDialogStatus = true
+                sleepReadyDialog.show(supportFragmentManager, "SleepReadyDialog")
             }
         }
     }
