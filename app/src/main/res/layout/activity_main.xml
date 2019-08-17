@@ -57,12 +57,11 @@
                 android:id="@+id/image_main_alarm"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
                 android:layout_marginBottom="65dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/alarm_set_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="@id/image_main_onoff" />
 
         <TextView
                 android:id="@+id/text_main_alarm"
@@ -80,12 +79,11 @@
                 android:id="@+id/image_main_dream"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="58dp"
                 android:layout_marginBottom="65dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/dreams_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="@id/image_main_onoff" />
 
         <TextView
                 android:id="@+id/text_main_dream"
@@ -98,45 +96,6 @@
                 app:layout_constraintTop_toBottomOf="@id/image_main_dream"
                 app:layout_constraintStart_toStartOf="@id/image_main_dream"
                 app:layout_constraintEnd_toEndOf="@id/image_main_dream"/>
-
-        <Button
-                android:id="@+id/button_alarm"
-                android:text="알람설정"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Button
-                android:id="@+id/button_dream"
-                android:text="꿈페이지"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Button
-                android:id="@+id/button_sample"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp"
-                android:text="Button : Sample"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-                android:id="@+id/text_sample2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{sample.nameTag}"
-                android:textColor="@color/black"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_sample"
-                tools:text="Hello zaza"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
