@@ -24,7 +24,9 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         database = FirebaseDatabase.getInstance().reference
+        database.keepSynced(true)
         db_save_btn.setOnClickListener {
             saveDream(0.2, "Hihi")
         }
