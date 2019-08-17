@@ -1,10 +1,9 @@
 package com.teamnexters.zaza.ui.dream
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream.*
 
