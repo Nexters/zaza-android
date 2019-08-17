@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_r21"
+        tools:background="#FFFF33" >
+
+    <ImageView
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/group_6"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:text="기기를 뒤집어서 시작하세요"
+            android:textSize="18sp"
+            android:textColor="#6d758f" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="37dp"
+            android:gravity="center_horizontal"
+            android:text="기기가 잠기지 않은 상태로, 화면을\n밑으로 놓아 주세요. 그럼 꿈에서 봐요 :) "
+            android:textSize="11sp"
+            android:textColor="#6d758f" />
+
+    <TextView
+            android:id="@+id/text_sleep_ready"
+            android:layout_width="172dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="23dp"
+            android:gravity="center"
+            android:text="마음을 바꿨습니다"
+            android:textSize="12sp"
+            android:textColor="#6d758f"
+            android:background="@drawable/bg_stroke_r27"/>
+
+</LinearLayout>

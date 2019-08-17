@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,7 @@ import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.ImageActivity
 import com.teamnexters.zaza.ui.dream.DreamActivity
+import com.teamnexters.zaza.ui.main.SleepReadyDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +30,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        image_main_dream.setOnClickListener(this)
+        text_main_dream.setOnClickListener(this)
+        text_main_logo.setOnClickListener(this)
+        image_main_onoff.setOnClickListener(this)
 
         sampleViewModel = ViewModelProviders.of(this).get(SampleViewModel::class.java)
 
@@ -55,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         thread(start = true) {
             while (true) {
                 Thread.sleep(1000)
-                handler?.sendEmptyMessage(0)
+                handler.sendEmptyMessage(0)
             }
         }
     }
@@ -71,7 +78,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 startActivity(nextIntent)
             }
             image_main_onoff -> {
-                //
+                Log.v("Main", "image_main_onoff")
+                SleepReadyDialog.getInstance().show(supportFragmentManager, "SleepReadyDialog")
             }
         }
     }
