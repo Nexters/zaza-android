@@ -10,4 +10,6 @@ interface AlarmRepository {
                  success: (alarm: AlarmVO) ->Unit,
                  error: (throwable: Throwable) -> Unit
     ): Disposable
+
+    fun updateAlarm(alarmVO: AlarmVO)
 }

@@ -7,6 +7,7 @@ import com.teamnexters.zaza.ui.alarm.repository.AlarmRepositoryImpl
 import com.teamnexters.zaza.ui.alarm.data.vo.AlarmRealm
 import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
 import com.teamnexters.zaza.ui.alarm.usecase.GetAlarm
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class AlarmViewModel: BaseViewModel() {
@@ -15,19 +16,29 @@ class AlarmViewModel: BaseViewModel() {
     val mutableAlarmData = MutableLiveData<AlarmVO>()
     private val repository =  AlarmRepositoryImpl()
 
+    val useCaseAlarm: GetAlarm
     init {
-        Log.e(TAG, "ViewMoel init")
-        GetAlarm(repository, Schedulers.io())(
-            success = { alarm ->
-                mutableAlarmData.value = alarm
-                Log.e(TAG, mutableAlarmData.toString());
-            },
-            error = { t->
-                Log.e(TAG, t.toString());
-            }
+        useCaseAlarm = GetAlarm(repository, Schedulers.io())
+
+        useCaseAlarm(
+                success = { alarm ->
+                    mutableAlarmData.value = alarm
+                    Log.e(TAG, mutableAlarmData.toString());
+                },
+        error = { t->
+            Log.e(TAG, t.toString());
+        }
         )
     }
 
+    fun updateAlarm(alarmVO: AlarmVO){
+        repository.updateAlarm(alarmVO)
+    }
 
+    override fun onCleared() {
+        useCaseAlarm.cancel()
+        super.onCleared()
+
+    }
 
 }

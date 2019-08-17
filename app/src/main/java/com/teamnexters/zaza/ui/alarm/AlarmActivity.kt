@@ -13,10 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.teamnexters.zaza.R
 import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityAlarmBinding
+import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
 import com.teamnexters.zaza.util.alarm.AlarmUtil
 import com.teamnexters.zaza.util.getAlarm
 import com.teamnexters.zaza.util.insertAlarm
-import com.teamnexters.zaza.util.updateAlarm
 
 class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
     override val layoutResourceId: Int = R.layout.activity_alarm
@@ -42,6 +42,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
         alarmVM.mutableAlarmData.observe(this, Observer{ alarm ->
 
             for(i in alarm.weeks.indices){
+                Log.e(TAG,alarm.weeks[i].toString())
                 when(i){
                     0 -> viewDataBinding.checkWeekMon.isChecked = alarm.weeks[i]
                     1 -> viewDataBinding.checkWeekTue.isChecked = alarm.weeks[i]
@@ -56,6 +57,8 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
             viewDataBinding.tvSleepMinute.text = alarm.sleepM.toString()
             viewDataBinding.tvWakeHour.text = alarm.wakeUpH.toString()
             viewDataBinding.tvWakeMinute.text = alarm.wakeUpM.toString()
+            viewDataBinding.checkFive.isChecked = alarm.isAfterFive
+            viewDataBinding.chckVibrate.isChecked = alarm.isVibrate
 
          }
         )
@@ -112,7 +115,21 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
 
         viewDataBinding.btnSaveAlarm.setOnClickListener{
             setOnOff(false)
+            val weeks = ArrayList<Boolean>()
 
+            weeks.add(viewDataBinding.checkWeekMon.isChecked)
+            weeks.add(viewDataBinding.checkWeekTue.isChecked)
+            weeks.add(viewDataBinding.checkWeekWed.isChecked)
+            weeks.add(viewDataBinding.checkWeekThu.isChecked)
+            weeks.add(viewDataBinding.checkWeekFri.isChecked)
+            weeks.add(viewDataBinding.checkWeekSat.isChecked)
+            weeks.add(viewDataBinding.checkWeekSun.isChecked)
+
+            val alarmVO = AlarmVO(weeks,viewDataBinding.chckVibrate.isChecked, viewDataBinding.checkFive.isChecked,
+                viewDataBinding.tvWakeHour.text.toString().toInt(), viewDataBinding.tvWakeMinute.text.toString().toInt(),
+                viewDataBinding.tvSleepHour.text.toString().toInt(), viewDataBinding.tvSleepMinute.text.toString().toInt())
+            alarmVM.updateAlarm(alarmVO)
+            alarmUtil.registAlarm(this, alarmVO)
         }
 
 

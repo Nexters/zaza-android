@@ -13,9 +13,9 @@ class AlarmDataSourceImpl :AlarmDataSource{
     override fun getAlarmData(): Single<AlarmVO> {
         return Single.create<AlarmVO>{
             val alarm = getAlarm()
-            Log.e("getAlarm", alarm.toString())
             alarm?.forEach { a ->
                 val weeks =  ArrayList<Boolean>()
+                Log.e("getAlarm", a.weeks.toString())
                 a.weeks.forEach { w ->
                     weeks.add(w)
                 }

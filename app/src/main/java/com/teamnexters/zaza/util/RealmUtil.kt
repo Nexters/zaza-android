@@ -21,21 +21,27 @@ fun getAlarm(): RealmResults<AlarmRealm>?{
     return alarm
 }
 
-fun updateAlarm(alarmVO: AlarmVO){
+fun updateAlarmRealm(alarmVO: AlarmVO){
     val realm = Realm.getDefaultInstance()
 
     realm.beginTransaction()
 
-    var alarm = realm.where<AlarmRealm>().contains("id","0").findFirst()!!
+    val weeks = RealmList<Boolean>()
+
+    alarmVO.weeks.forEach { w->
+        weeks.add(w)
+    }
+
+    var alarm = realm.where<AlarmRealm>().equalTo("id", 0.toInt()).findFirst()!!
     alarm.isAfterFive = alarmVO.isAfterFive
     alarm.isVibrate = alarmVO.isVibrate
     alarm.sleepH = alarmVO.sleepH
     alarm.sleepM = alarmVO.sleepM
     alarm.wakeUpH = alarmVO.wakeUpH
     alarm.wakeUpM = alarmVO.wakeUpM
+    alarm.weeks = weeks
 
     realm.commitTransaction()
-    realm.close()
 }
 
 fun insertAlarm(){
@@ -52,6 +58,4 @@ fun insertAlarm(){
 
     }
     realm.commitTransaction()
-    realm.close()
-
 }
