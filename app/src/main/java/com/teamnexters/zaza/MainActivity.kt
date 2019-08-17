@@ -70,6 +70,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 val nextIntent = Intent(this, ImageActivity::class.java)
                 startActivity(nextIntent)
             }
+            image_main_onoff -> {
+                //
+            }
         }
     }
 }
