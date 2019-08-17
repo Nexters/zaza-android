@@ -3,184 +3,203 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="alarm" type="com.teamnexters.zaza.ui.alarm.AlarmActivity"/>
+
+        <variable
+                name="alarm"
+                type="com.teamnexters.zaza.ui.alarm.AlarmActivity"/>
+
         <variable
                 name="dialog"
                 type="com.teamnexters.zaza.ui.alarm.AlarmBottomSheetDialog"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_alarm_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.alarm.AlarmActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_time_wake"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
-        <TextView
-                android:id="@+id/tv_wake_hour"
+            android:id="@+id/view_alarm_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.alarm.AlarmActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_time_wake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                app:layout_constraintRight_toLeftOf="@id/tv_wake_colon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                    android:id="@+id/tv_wake_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    app:layout_constraintRight_toLeftOf="@id/tv_wake_colon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_wake_colon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_wake_hour"
+                    app:layout_constraintRight_toLeftOf="@id/tv_wake_minute"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_wake_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_wake_colon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_time_sleep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+            <TextView
+                    android:id="@+id/tv_sleep_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="25sp"
+                    app:layout_constraintRight_toLeftOf="@id/tv_sleep_colon"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_sleep_colon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_sleep_hour"
+                    app:layout_constraintRight_toLeftOf="@id/tv_sleep_minute"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/tv_sleep_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_sleep_colon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+                android:id="@+id/view_checks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/view_time_sleep">
+
+            <CheckBox
+                    android:id="@+id/check_week_mon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="M"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_tue"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="T"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_wed"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="W"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_thu"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="T"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_fri"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="F"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_sat"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="S"/>
+
+            <CheckBox
+                    android:id="@+id/check_week_sun"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="S"/>
+
+        </LinearLayout>
+
+        <CheckBox
+                android:id="@+id/chck_vibrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="진동알림"
+                app:layout_constraintTop_toBottomOf="@id/view_checks"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:id="@+id/tv_wake_colon"
+                />
+
+        <CheckBox
+                android:id="@+id/check_five"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=":"
-                android:textSize="25sp"
-                app:layout_constraintLeft_toRightOf="@id/tv_wake_hour"
-                app:layout_constraintRight_toLeftOf="@id/tv_wake_minute"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:id="@+id/tv_wake_minute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                app:layout_constraintLeft_toRightOf="@id/tv_wake_colon"
+                android:text="5분 뒤 다시알림"
+                app:layout_constraintTop_toBottomOf="@id/view_checks"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                />
+
+        <EditText
+                android:id="@+id/et_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TEST TEST"
+                android:inputType="none"
+                app:layout_constraintTop_toBottomOf="@id/check_five"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_btns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                    android:id="@+id/btn_cancel_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="취소"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <Button
+                    android:id="@+id/btn_save_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="저장"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_time_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        <TextView
-                android:id="@+id/tv_sleep_hour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="25sp"
-                app:layout_constraintRight_toLeftOf="@id/tv_sleep_colon"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:id="@+id/tv_sleep_colon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":"
-                android:textSize="25sp"
-                app:layout_constraintLeft_toRightOf="@id/tv_sleep_hour"
-                app:layout_constraintRight_toLeftOf="@id/tv_sleep_minute"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:id="@+id/tv_sleep_minute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="25sp"
-                app:layout_constraintLeft_toRightOf="@id/tv_sleep_colon"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-            android:id="@+id/view_checks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/view_time_sleep">
-
-        <CheckBox
-                android:id="@+id/check_week_mon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="M"/>
-        <CheckBox
-                android:id="@+id/check_week_tue"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="T"/>
-        <CheckBox
-                android:id="@+id/check_week_wed"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="W"/>
-        <CheckBox
-                android:id="@+id/check_week_thu"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="T"/>
-        <CheckBox
-                android:id="@+id/check_week_fri"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="F"/>
-
-        <CheckBox
-                android:id="@+id/check_week_sat"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="S"/>
-        <CheckBox
-                android:id="@+id/check_week_sun"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="S"/>
-
-    </LinearLayout>
-
-    <CheckBox
-            android:id="@+id/chck_vibrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="진동알림"
-            app:layout_constraintTop_toBottomOf="@id/view_checks"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
-    <CheckBox
-            android:id="@+id/check_five"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5분 뒤 다시알림"
-            app:layout_constraintTop_toBottomOf="@id/view_checks"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-    <EditText
-            android:id="@+id/et_alarm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TEST TEST"
-            android:inputType="none"
-            app:layout_constraintTop_toBottomOf="@id/check_five"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_btns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent">
-        <Button
-                android:id="@+id/btn_cancel_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="취소"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        <Button
-                android:id="@+id/btn_save_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="저장"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
