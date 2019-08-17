@@ -1,6 +1,7 @@
 package com.teamnexters.zaza.sample.firebase
 
 import android.os.Bundle
+import android.util.Log
 import com.google.firebase.database.*
 import com.teamnexters.zaza.R
 import com.teamnexters.zaza.base.BaseActivity
@@ -8,6 +9,11 @@ import com.teamnexters.zaza.databinding.ActivityDatabaseBinding
 import com.teamnexters.zaza.sample.firebase.models.Dream
 import kotlinx.android.synthetic.main.activity_database.*
 import java.util.UUID
+import com.google.firebase.database.DataSnapshot
+
+
+
+
 
 class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
     override val layoutResourceId: Int
@@ -35,26 +41,24 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
     }
 
     private fun getDreams(uuid:String){
-        var sortByDatetiem = database.child("dream").child(uuid).orderByChild("datetime")
-        //TODO: To be add a function that get all data from realtime database in firebase.
-        sortByDatetiem.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                db_list_tv.setText("[Added]" + dataSnapshot.toString())
+        var sortByDatetiem = database.child("dream").orderByKey().equalTo(uuid)
+
+        // 전체 데이터를 가져옴
+        sortByDatetiem.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-                db_list_tv.setText("[Changed]" + s)
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var DreamList = ArrayList<String>()
+                for (dsp in dataSnapshot.getChildren()) {
+                    DreamList.add(dsp.toString())
+                }
 
+                Log.d("test", DreamList.toString())
             }
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                db_list_tv.setText("[Removed]" + dataSnapshot.toString())
-
-            }
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
-                db_list_tv.setText("[Moved]" + s)
-            }
-            override fun onCancelled(databaseError: DatabaseError) {}
         })
+
 
     }
 

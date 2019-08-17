@@ -12,14 +12,12 @@
 
     <com.teamnexters.zaza.ui.dream.SquareRelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-    >
+            android:layout_height="wrap_content">
 
         <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/civ_dream"
-                android:src="@drawable/loading"
                 android:layout_centerInParent="true"
         />
 
