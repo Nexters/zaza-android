@@ -14,6 +14,8 @@
 
         <activity android:name=".sample.firebase.DatabaseActivity">
         </activity>
+        <activity android:name=".sample.firebase.ImageActivity">
+        </activity>
         <activity android:name=".ui.dream.DreamActivity">
         </activity>
         <activity android:name=".ui.alarm.AlarmActivity">
