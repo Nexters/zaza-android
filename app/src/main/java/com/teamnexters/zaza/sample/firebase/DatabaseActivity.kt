@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.activity_database.*
 import java.util.UUID
 import com.google.firebase.database.DataSnapshot
 
-
+//TODO: 꿈이 저장 될 때 아래 Save Dream 과 같이 꿈을 저장해야함, 알아 둬야 할 게 저장 시 **Image Activity**의 Retrofit API를 호출하여,
+//TODO: 이미지 주소도 같이 저장해야함. 이미지는 백그라운드 이미지와 그라디언트 아이콘 이미지 두개 임. (JK님)
 class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_database
