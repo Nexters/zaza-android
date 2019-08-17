@@ -19,8 +19,9 @@
                 android:id="@+id/text_main_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginStart="37dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="27dp"
+                android:padding="10dp"
                 android:text="zaza"
                 android:textColor="#696d74"
                 android:textSize="25sp"
@@ -51,6 +52,52 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
                 tools:text="12 : 34"/>
+
+        <ImageView
+                android:id="@+id/image_main_alarm"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="58dp"
+                android:layout_marginBottom="65dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/alarm_set_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+                android:id="@+id/text_main_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="9dp"
+                android:textSize="12sp"
+                android:textColor="#909295"
+                android:text="알람설정"
+                app:layout_constraintTop_toBottomOf="@id/image_main_alarm"
+                app:layout_constraintStart_toStartOf="@id/image_main_alarm"
+                app:layout_constraintEnd_toEndOf="@id/image_main_alarm"/>
+
+        <ImageView
+                android:id="@+id/image_main_dream"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="58dp"
+                android:layout_marginBottom="65dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/dreams_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+                android:id="@+id/text_main_dream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="9dp"
+                android:textSize="12sp"
+                android:textColor="#909295"
+                android:text="모은 꿈보기"
+                app:layout_constraintTop_toBottomOf="@id/image_main_dream"
+                app:layout_constraintStart_toStartOf="@id/image_main_dream"
+                app:layout_constraintEnd_toEndOf="@id/image_main_dream"/>
 
         <Button
                 android:id="@+id/button_alarm"
