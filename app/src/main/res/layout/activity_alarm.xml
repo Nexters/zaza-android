@@ -5,6 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="alarm" type="com.teamnexters.zaza.ui.alarm.AlarmActivity"/>
+        <variable
+                name="dialog"
+                type="com.teamnexters.zaza.ui.alarm.AlarmBottomSheetDialog"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_alarm_bg"
@@ -13,7 +16,7 @@
         tools:context=".ui.alarm.AlarmActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_time_sleep"
+            android:id="@+id/view_time_wake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +25,6 @@
                 android:id="@+id/tv_wake_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01"
                 android:textSize="25sp"
                 app:layout_constraintRight_toLeftOf="@id/tv_wake_colon"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -40,7 +42,6 @@
                 android:id="@+id/tv_wake_minute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01"
                 android:textSize="25sp"
                 app:layout_constraintLeft_toRightOf="@id/tv_wake_colon"
                 app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +51,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_time_wake"
+            android:id="@+id/view_time_sleep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +60,7 @@
                 android:id="@+id/tv_sleep_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01"
+                android:text=""
                 android:textSize="25sp"
                 app:layout_constraintRight_toLeftOf="@id/tv_sleep_colon"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -77,7 +78,7 @@
                 android:id="@+id/tv_sleep_minute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01"
+                android:text=""
                 android:textSize="25sp"
                 app:layout_constraintLeft_toRightOf="@id/tv_sleep_colon"
                 app:layout_constraintRight_toRightOf="parent"
@@ -96,44 +97,37 @@
                 android:id="@+id/check_week_mon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="M"/>
         <CheckBox
                 android:id="@+id/check_week_tue"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="T"/>
         <CheckBox
                 android:id="@+id/check_week_wed"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="W"/>
         <CheckBox
                 android:id="@+id/check_week_thu"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="T"/>
         <CheckBox
                 android:id="@+id/check_week_fri"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="F"/>
 
         <CheckBox
                 android:id="@+id/check_week_sat"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="S"/>
         <CheckBox
                 android:id="@+id/check_week_sun"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:clickable="false"
                 android:text="S"/>
 
     </LinearLayout>
@@ -161,30 +155,24 @@
             android:layout_height="wrap_content"
             android:text="TEST TEST"
             android:inputType="none"
-            app:layout_constraintBottom_toTopOf="@id/btn_alarm_edit"/>
-
-    <Button
-            android:id="@+id/btn_alarm_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="알람 수정"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/check_five"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view_btns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent">
         <Button
+                android:id="@+id/btn_cancel_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="취소"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         <Button
+                android:id="@+id/btn_save_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저장"
