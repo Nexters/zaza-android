@@ -39,7 +39,10 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
         //TODO: To be add a function that get all data from realtime database in firebase.
         sortByDatetiem.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+
                 db_list_tv.setText("[Added]" + dataSnapshot.toString())
+                db_list_tv.setText(db_list_tv.text.toString() + "[Added]" + dataSnapshot.children.toString())
+
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
