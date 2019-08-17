@@ -5,21 +5,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View"/>
     </data>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             android:id="@+id/background_image"
             tools:context=".sample.firebase.ImageActivity">
+
         <ImageView
-                android:id="@+id/gradient_image1"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
-        <ImageView
-                android:id="@+id/gradient_image2"
+                android:id="@+id/gradient_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
     </LinearLayout>
