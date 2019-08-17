@@ -1,15 +1,11 @@
 package com.teamnexters.zaza.sample.firebase
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import com.squareup.picasso.Picasso
 import com.teamnexters.zaza.R
 import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityDatabaseBinding
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import com.teamnexters.zaza.sample.firebase.models.Image
 import com.teamnexters.zaza.sample.firebase.retrofit.ZazaService
 import kotlinx.android.synthetic.main.activity_image.*
@@ -18,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 
 class ImageActivity : BaseActivity<ActivityDatabaseBinding>() {

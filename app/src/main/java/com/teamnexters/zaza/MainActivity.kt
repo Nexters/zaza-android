@@ -5,19 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
-import com.teamnexters.zaza.sample.firebase.DatabaseActivity
 import com.teamnexters.zaza.sample.firebase.ImageActivity
+import com.teamnexters.zaza.ui.dream.DreamActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
+
     override val layoutResourceId: Int
         get() = R.layout.activity_main
 
@@ -38,24 +40,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         // 이 활동을 LifecycleOwner 및 옵저버로 전달하여 LiveData를 관찰한다.
         sampleViewModel.nameTag.observe(this, nameObserver)
 
-        button_sample.setOnClickListener {
-//            sampleViewModel.getName().value = "Sample!!!!"
-//            sampleViewModel.nameTag.value = "Sample!!!!"
-            val nextIntent = Intent(this, ImageActivity::class.java)
-            startActivity(nextIntent)
-        }
-        button_dream.setOnClickListener {
-//            val sampleIntent = Intent(this, DreamActivity::class.java)
-//            startActivity(sampleIntent)
-        }
-
         @SuppressLint("HandlerLeak")
         handler = object : Handler() {
             override fun handleMessage(msg: Message?) {
                 super.handleMessage(msg)
                 val cal = Calendar.getInstance()
 
-                val sdf = SimpleDateFormat("hh:mm")
+                val sdf = SimpleDateFormat("hh : mm")
                 val strTime = sdf.format(cal.time)
                 text_main_time.text = strTime
             }
@@ -67,6 +58,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 handler?.sendEmptyMessage(0)
             }
         }
+    }
 
+    override fun onClick(p0: View?) {
+        when (p0) {
+            image_main_dream, text_main_dream -> {
+                val sampleIntent = Intent(this, DreamActivity::class.java)
+                startActivity(sampleIntent)
+            }
+            text_main_logo -> {
+                val nextIntent = Intent(this, ImageActivity::class.java)
+                startActivity(nextIntent)
+            }
+            image_main_onoff -> {
+                //
+            }
+        }
     }
 }
