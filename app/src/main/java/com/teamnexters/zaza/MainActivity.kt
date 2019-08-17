@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.teamnexters.zaza.base.BaseActivity
@@ -54,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 super.handleMessage(msg)
                 val cal = Calendar.getInstance()
 
-                val sdf = SimpleDateFormat("hh:mm")
+                val sdf = SimpleDateFormat("hh : mm")
                 val strTime = sdf.format(cal.time)
                 text_main_time.text = strTime
             }

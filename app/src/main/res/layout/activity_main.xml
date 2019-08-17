@@ -14,19 +14,43 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             tools:context=".MainActivity">
+
+        <TextView
+                android:id="@+id/text_main_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginStart="37dp"
+                android:text="zaza"
+                android:textColor="#696d74"
+                android:textSize="25sp"
+                android:fontFamily="@font/gilroy_bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/image_main_onoff"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/on_switch"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        
         <TextView
                 android:id="@+id/text_main_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="현재 시간"
-                android:textColor="@color/black"
-                android:textSize="30sp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#aab1ca"
+                android:textSize="76sp"
                 android:fontFamily="@font/gilroy_bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Hello zaza"/>
+                app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
+                tools:text="12 : 34"/>
 
         <Button
                 android:id="@+id/button_alarm"
