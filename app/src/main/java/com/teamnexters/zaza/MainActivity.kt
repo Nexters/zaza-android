@@ -21,6 +21,7 @@ import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.ImageActivity
 import com.teamnexters.zaza.ui.dream.DreamActivity
+import com.teamnexters.zaza.ui.main.CancelSleepDialog
 import com.teamnexters.zaza.ui.main.SleepReadyDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -39,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     lateinit var sensorEventListener: SensorEventListener
     lateinit var gyro: Sensor
     lateinit var countDownTimer: CountDownTimer
+    lateinit var cancelSleepDialog: CancelSleepDialog
 
     var openDialogStatus = false
     var isSleepMode = false
@@ -90,10 +92,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             override fun onFinish() {
                 cancel()
                 finishSleepMode()
+                if (cancelSleepDialog.isAdded) {
+                    cancelSleepDialog.dismissAllowingStateLoss()
+                }
             }
 
             override fun onTick(p0: Long) {
-                Log.v("Main", "* * * ${p0}")
+//                Log.v("Main", "* * * ${p0}")
                 text_main_sleep_guide.text = getString(R.string.sleep_mode_bottom_guide, countTime)
                 countTime = countTime - 1
             }
@@ -129,6 +134,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                         }
                     }
                 }
+            }
+        }
+
+        cancelSleepDialog = CancelSleepDialog.getInstance {
+            if (it) {
+                finishSleepMode()
+            } else {
+                cancelSleepDialog.dismissAllowingStateLoss()
             }
         }
     }
@@ -193,8 +206,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 startActivity(nextIntent)
             }
             image_main_onoff -> {
-                openDialogStatus = true
-                sleepReadyDialog.show(supportFragmentManager, "SleepReadyDialog")
+                if (isSleepMode) {
+                    cancelSleepDialog.show(supportFragmentManager, "CancelSleepDialog")
+                } else {
+                    openDialogStatus = true
+                    sleepReadyDialog.show(supportFragmentManager, "SleepReadyDialog")
+                }
             }
         }
     }

@@ -56,6 +56,21 @@
                 app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
                 tools:text="12 : 34"/>
 
+        <TextView
+                android:id="@+id/text_main_sleep_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="38dp"
+                android:gravity="center"
+                android:text="@string/sleep_mode_bottom_guide"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"
+                tools:textColor="@color/black"/>
+
         <ImageView
                 android:id="@+id/image_main_alarm"
                 android:layout_width="60dp"
@@ -99,21 +114,6 @@
                 app:layout_constraintTop_toBottomOf="@id/image_main_dream"
                 app:layout_constraintStart_toStartOf="@id/image_main_dream"
                 app:layout_constraintEnd_toEndOf="@id/image_main_dream"/>
-
-        <TextView
-                android:id="@+id/text_main_sleep_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="38dp"
-                android:gravity="center"
-                android:text="@string/sleep_mode_bottom_guide"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:visibility="visible"
-                tools:textColor="@color/black"/>
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
