@@ -73,6 +73,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 handler?.sendEmptyMessage(0)
             }
         }
+
+        image_main_dream.setOnClickListener(this)
+        text_main_dream.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {

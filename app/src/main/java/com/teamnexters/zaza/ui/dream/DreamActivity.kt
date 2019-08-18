@@ -20,7 +20,9 @@ class DreamActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dream)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
-
+        layout_btn_dream_close.setOnClickListener{
+            finish()
+        }
 
         dreamList.add(DreamItem("loading", "August 11"))
         dreamList.add(DreamItem("loading", "August 12"))
