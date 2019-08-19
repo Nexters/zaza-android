@@ -14,6 +14,7 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val date = itemView?.findViewById<TextView>(R.id.tv_date)
     val img = itemView?.findViewById<CircularImageView>(R.id.civ_dream)
 
+
     fun bind (dreamitem: DreamItem, context: Context){
 
         if(dreamitem.photo != ""){

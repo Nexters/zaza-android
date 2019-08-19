@@ -10,46 +10,110 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             tools:context=".MainActivity">
+
         <TextView
-                android:id="@+id/text_sample"
+                android:id="@+id/text_main_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NAME"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="27dp"
+                android:padding="10dp"
+                android:text="zaza"
+                android:textColor="@color/gray"
+                android:textSize="25sp"
+                android:fontFamily="@font/gilroy_bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/image_main_onoff"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/on_switch"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Hello zaza"/>
-
-        <Button
-                android:id="@+id/button_sample"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Button : Sample"
-                app:layout_constraintTop_toBottomOf="@+id/text_sample"
-                app:layout_constraintStart_toStartOf="@id/text_sample"/>
-        <Button
-                android:text="꿈페이지"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_dream" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"/>
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        
         <TextView
-                android:id="@+id/text_sample2"
+                android:id="@+id/text_main_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{sample.nameTag}"
+                android:layout_marginBottom="20dp"
+                android:textColor="#aab1ca"
+                android:textSize="76sp"
+                android:fontFamily="@font/questrial_regular"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_sample"
-                tools:text="Hello zaza"/>
+                app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
+                tools:text="12 : 34"/>
 
+        <TextView
+                android:id="@+id/text_main_sleep_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="38dp"
+                android:gravity="center"
+                android:text="@string/sleep_mode_bottom_guide"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible"
+                tools:textColor="@color/black"/>
+
+        <ImageView
+                android:id="@+id/image_main_alarm"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="65dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/alarm_set_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/image_main_onoff" />
+
+        <TextView
+                android:id="@+id/text_main_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="9dp"
+                android:textSize="12sp"
+                android:textColor="#909295"
+                android:text="알람설정"
+                app:layout_constraintTop_toBottomOf="@id/image_main_alarm"
+                app:layout_constraintStart_toStartOf="@id/image_main_alarm"
+                app:layout_constraintEnd_toEndOf="@id/image_main_alarm"/>
+
+        <ImageView
+                android:id="@+id/image_main_dream"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="65dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/dreams_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_main_onoff" />
+
+        <TextView
+                android:id="@+id/text_main_dream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="9dp"
+                android:textSize="12sp"
+                android:textColor="#909295"
+                android:text="모은 꿈보기"
+                app:layout_constraintTop_toBottomOf="@id/image_main_dream"
+                app:layout_constraintStart_toStartOf="@id/image_main_dream"
+                app:layout_constraintEnd_toEndOf="@id/image_main_dream"/>
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

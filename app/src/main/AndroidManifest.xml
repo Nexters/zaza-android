@@ -3,6 +3,7 @@
           package="com.teamnexters.zaza">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:name=".ZazaApplication"
@@ -15,6 +16,8 @@
         <activity android:name=".ui.dream.DreamDetailActivity"/>
 
         <activity android:name=".sample.firebase.DatabaseActivity">
+        </activity>
+        <activity android:name=".sample.firebase.ImageActivity">
         </activity>
         <activity android:name=".ui.dream.DreamActivity">
         </activity>
