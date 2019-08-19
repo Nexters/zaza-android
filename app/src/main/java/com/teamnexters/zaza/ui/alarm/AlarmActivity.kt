@@ -17,6 +17,8 @@ import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
 import com.teamnexters.zaza.util.alarm.AlarmUtil
 import com.teamnexters.zaza.util.getAlarm
 import com.teamnexters.zaza.util.insertAlarm
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
     override val layoutResourceId: Int = R.layout.activity_alarm
@@ -55,8 +57,12 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
                     6 -> viewDataBinding.checkWeekSun.isChecked = alarm.weeks[i]
                 }
             }
-            viewDataBinding.tvSleepHour.text = String.format("%02d",alarm.sleepH)
-            viewDataBinding.tvSleepMinute.text = String.format("%02d", alarm.sleepM)
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, alarm.sleepH)
+            calendar.set(Calendar.MINUTE, alarm.sleepM)
+            calendar.add(Calendar.MINUTE,30)
+            viewDataBinding.tvSleepHour.text = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY))
+            viewDataBinding.tvSleepMinute.text = String.format("%02d", calendar.get(Calendar.MINUTE))
             viewDataBinding.tvWakeHour.text = String.format("%02d",alarm.wakeUpH)
             viewDataBinding.tvWakeMinute.text = String.format("%02d",alarm.wakeUpM)
             viewDataBinding.checkFive.isChecked = alarm.isAfterFive
@@ -92,8 +98,6 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
             viewDataBinding.checkWeekSun.isClickable = false
             viewDataBinding.checkWeekThu.isClickable = false
             viewDataBinding.checkWeekWed.isClickable = false
-
-
             viewDataBinding.viewTimeSleep.isClickable = false
             viewDataBinding.viewTimeWake.isClickable = false
         }
@@ -128,9 +132,14 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>() {
             weeks.add(viewDataBinding.checkWeekSat.isChecked)
             weeks.add(viewDataBinding.checkWeekSun.isChecked)
 
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, viewDataBinding.tvSleepHour.text.toString().toInt())
+            calendar.set(Calendar.MINUTE, viewDataBinding.tvSleepMinute.text.toString().toInt())
+            calendar.add(Calendar.MINUTE, -30)
+
             val alarmVO = AlarmVO(weeks,viewDataBinding.chckVibrate.isChecked, viewDataBinding.checkFive.isChecked,
                 viewDataBinding.tvWakeHour.text.toString().toInt(), viewDataBinding.tvWakeMinute.text.toString().toInt(),
-                viewDataBinding.tvSleepHour.text.toString().toInt(), viewDataBinding.tvSleepMinute.text.toString().toInt())
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE) )
             alarmVM.updateAlarm(alarmVO)
             alarmUtil.registAlarm(this, alarmVO)
         }

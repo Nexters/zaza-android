@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.teamnexters.zaza">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
             android:name=".ZazaApplication"
             android:allowBackup="true"
@@ -17,13 +19,13 @@
         <activity android:name=".ui.dream.DreamActivity">
         </activity>
         <activity android:name=".ui.alarm.AlarmActivity">
-           
-        </activity>
-        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+
         </activity>
         <receiver android:name=".util.alarm.AlarmReceiver">
         </receiver>
