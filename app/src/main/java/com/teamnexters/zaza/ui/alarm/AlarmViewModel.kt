@@ -19,20 +19,24 @@ class AlarmViewModel: BaseViewModel() {
     val useCaseAlarm: GetAlarm
     init {
         useCaseAlarm = GetAlarm(repository, Schedulers.io())
+        getAlarm()
+    }
 
+    fun getAlarm(){
         useCaseAlarm(
-                success = { alarm ->
-                    mutableAlarmData.value = alarm
-                    Log.e(TAG, mutableAlarmData.toString());
-                },
-        error = { t->
-            Log.e(TAG, t.toString());
-        }
+            success = { alarm ->
+                mutableAlarmData.value = alarm
+                Log.e(TAG, mutableAlarmData.toString());
+            },
+            error = { t->
+                Log.e(TAG, t.toString());
+            }
         )
     }
 
     fun updateAlarm(alarmVO: AlarmVO){
         repository.updateAlarm(alarmVO)
+        getAlarm()
     }
 
     override fun onCleared() {

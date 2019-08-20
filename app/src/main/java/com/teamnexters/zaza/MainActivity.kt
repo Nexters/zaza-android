@@ -23,6 +23,7 @@ import com.teamnexters.zaza.sample.firebase.ImageActivity
 import com.teamnexters.zaza.sample.firebase.models.Dream
 import com.teamnexters.zaza.sample.firebase.models.Image
 import com.teamnexters.zaza.sample.firebase.retrofit.ZazaService
+import com.teamnexters.zaza.ui.alarm.AlarmActivity
 import com.teamnexters.zaza.ui.dream.DreamActivity
 import com.teamnexters.zaza.ui.main.CancelSleepDialog
 import com.teamnexters.zaza.ui.main.SleepReadyDialog
@@ -89,6 +90,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         text_main_dream.setOnClickListener(this)
         text_main_logo.setOnClickListener(this)
         image_main_onoff.setOnClickListener(this)
+        image_main_alarm.setOnClickListener(this)
 
         sampleViewModel = ViewModelProviders.of(this).get(SampleViewModel::class.java)
 
@@ -315,6 +317,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                     openDialogStatus = true
                     sleepReadyDialog.show(supportFragmentManager, "SleepReadyDialog")
                 }
+            }
+
+            image_main_alarm ->{
+                val sampleIntent = Intent(this, AlarmActivity::class.java)
+                startActivity(sampleIntent)
             }
         }
     }

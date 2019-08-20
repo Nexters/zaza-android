@@ -15,10 +15,9 @@ class AlarmUtil {
         val sleepTime = getTime(alarmRealm.sleepH, alarmRealm.sleepM)
         val wakeTime = getTime(alarmRealm.wakeUpH, alarmRealm.wakeUpM)
 
-        val intent = Intent(context, AlarmReceiver()::class.java)
-        intent.putExtra("vibrate", alarmRealm.isVibrate)
-        intent.putExtra("oneMore", alarmRealm.isAfterFive)
-        intent.putExtra("isRingtone", false)
+        val intentS = Intent(context, AlarmReceiver()::class.java)
+
+        intentS.putExtra("sleep", "sleep")
 
         for (i in alarmRealm.weeks.indices) {
             var code = 0
@@ -36,11 +35,12 @@ class AlarmUtil {
              * 취침 알람 rquestId는 Calendar의 날짜 변수로 설정하고 기상 알람은 *10로 설정한다
              */
             cancleAlarm(code, context)
-            cancleAlarm(code * 2, context);
+            cancleAlarm(code * 10, context);
 
             if (alarmRealm.weeks[i]) {
                 val calendar = Calendar.getInstance()
-                if (calendar.get(Calendar.DAY_OF_WEEK) == code && (calendar.get(Calendar.HOUR) >= alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM)) {
+                if (calendar.get(Calendar.DAY_OF_WEEK) == code && (calendar.get(Calendar.HOUR_OF_DAY) > alarmRealm.sleepH) ||
+                    (( calendar.get(Calendar.HOUR_OF_DAY) == alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM))) {
                     calendar.add(Calendar.DATE, 7);
                 } else {
                     if (calendar.get(Calendar.DAY_OF_WEEK) <= code) {
@@ -52,32 +52,35 @@ class AlarmUtil {
 
                 val c = Calendar.getInstance()
                 c.timeInMillis = sleepTime.time
-                calendar.set(Calendar.HOUR, c.get(Calendar.HOUR))
+                calendar.set(Calendar.HOUR_OF_DAY, c.get(Calendar.HOUR_OF_DAY))
                 calendar.set(Calendar.MINUTE, c.get(Calendar.MINUTE))
                 Log.e(
                     "AlarmUtil:: sleep = ", calendar.get(Calendar.YEAR).toString() + ","
                             + calendar.get(Calendar.MONTH) + ","
                             + calendar.get(Calendar.DAY_OF_MONTH) + ","
-                            + calendar.get(Calendar.HOUR) + "," +
+                            + calendar.get(Calendar.HOUR_OF_DAY) + "," +
                             calendar.get(Calendar.MINUTE)
                 )
-                setTriggerTime(context, calendar, intent, code)
+                setTriggerTime(context, calendar, intentS, code)
 
                 c.timeInMillis = wakeTime.time
-                calendar.set(Calendar.HOUR, c.get(Calendar.HOUR))
+                calendar.set(Calendar.HOUR_OF_DAY, c.get(Calendar.HOUR_OF_DAY))
                 calendar.set(Calendar.MINUTE, c.get(Calendar.MINUTE))
-                if ((alarmRealm.sleepH >= alarmRealm.wakeUpH) && alarmRealm.sleepM >= alarmRealm.wakeUpM) {
+                if ((alarmRealm.sleepH > alarmRealm.wakeUpH) ||( (alarmRealm.sleepH == alarmRealm.wakeUpH) && (alarmRealm.sleepM >= alarmRealm.wakeUpM))) {
                     /**
                      * 다음 날 기상 알람 설정
                      */
                     calendar.add(Calendar.DATE, 1)
                 }
-                setTriggerTime(context, calendar, intent, code*10)
+
+                val intentW = Intent(context, AlarmReceiver::class.java)
+                intentW.putExtra("wake", "wake")
+                setTriggerTime(context, calendar, intentW, code*10)
                 Log.e(
                     "AlarmUtil:: wake = ", calendar.get(Calendar.YEAR).toString() + ","
                             + calendar.get(Calendar.MONTH) + ","
                             + calendar.get(Calendar.DAY_OF_MONTH) + ","
-                            + calendar.get(Calendar.HOUR) + "," +
+                            + calendar.get(Calendar.HOUR_OF_DAY) + "," +
                             calendar.get(Calendar.MINUTE)
                 )
             }
@@ -86,10 +89,19 @@ class AlarmUtil {
 
     }
 
+    fun afterThirtyAlarm(context: Context, calendar: Calendar){
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val pendingIntent = getPendingIntent(intent, 202,context)
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
+    }
+
     fun getTime(hour: Int, minute: Int): Date {
         val calendar = Calendar.getInstance()
 
-        calendar.set(Calendar.HOUR, hour)
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
 
         return calendar.time
@@ -121,6 +133,7 @@ class AlarmUtil {
         }
 
     }
+
 
     companion object {
 
