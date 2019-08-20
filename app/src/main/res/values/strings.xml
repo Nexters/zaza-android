@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">zaza</string>
     <string name="sleep_mode_bottom_guide">핸드폰을 뒤집어 주세요. 그렇지 않으면\n슬립모드가 %d초 후에 취소됩니다.</string>
+    <string name="time_format">%02d:%02d:%02d</string>
 </resources>

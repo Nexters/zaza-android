@@ -14,10 +14,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.ImageActivity
+import com.teamnexters.zaza.sample.firebase.models.Dream
 import com.teamnexters.zaza.ui.dream.DreamActivity
 import com.teamnexters.zaza.ui.main.CancelSleepDialog
 import com.teamnexters.zaza.ui.main.SleepReadyDialog
@@ -33,7 +36,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
     val COUNT_TIME: Long = 11 * 1000
     val COUNT_INTERVAL: Long = 1000
+    var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
+    lateinit var sharedPref: SharedPreferences
     lateinit var sampleViewModel: SampleViewModel
     lateinit var sensorManager: SensorManager
     lateinit var sensorEventListener: SensorEventListener
@@ -56,12 +61,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var updateTime = 0L
     var sec = 0
     var min = 0
-    var milliSec = 0
+    var hour = 0
     var swHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPref : SharedPreferences = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid == null) {
             Log.d("MAIN", "The uuid will be generated.")
@@ -141,12 +146,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 when (p0!!.sensor.type) {
                     Sensor.TYPE_GRAVITY -> {
 //                        Log.v("Main","\n* * * x: ${p0!!.values[0]} // y : ${p0!!.values[1]} // z : ${p0!!.values[2]}")
-                        if (openDialogStatus && p0!!.values[2] < 0) {
+                        if (openDialogStatus && p0.values[2] < 0) {
                             // 휴대폰 뒤집었을 때
                             onSleepMode()
-                            isSleepMode = true
                             hideCountDown()
-                        } else {
+                            if (!isSleepMode) {
+                                startStopWatch()
+                                isSleepMode = true
+                            }
+                        } else if (p0.values[2] > 0) {
                             // 수면모드에서 폰을 원상태로 돌릴 경우
                             if (!isCountDown) {
                                 showCountDown()
@@ -175,11 +183,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 updateTime = timeBuff + msTime
                 sec = (updateTime / 1000).toInt()
                 min = sec / 60
-                milliSec = (updateTime % 1000).toInt()
-                text_main_stop_swatch.text = "${min}:${sec}:${milliSec}"
+                hour = min / 60
+                text_main_stop_swatch.text = getString(R.string.time_format, hour, min, sec)
                 swHandler.postDelayed(this, 0)
             }
         }
+    }
+
+    fun startStopWatch() {
+        startTime = SystemClock.uptimeMillis()
+        swHandler.postDelayed(runnable, 0)
     }
 
     fun onSleepMode() {
@@ -196,11 +209,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         image_main_onoff.setImageResource(R.drawable.off_switch_btn)
         text_main_logo.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         window.statusBarColor = ContextCompat.getColor(this, R.color.gray_dark)
+    }
 
-        // Start StopWatch
-        startTime = SystemClock.uptimeMillis()
-        swHandler.postDelayed(runnable, 0)
-
+    fun uploadFirebase() {
+        val datetime = System.currentTimeMillis()
+        Log.d("Main", "sec : ${msTime/(1000)}")
+        Log.d("Main", "hour : ${msTime/(1000 * 60 * 60)}")
+        val user = Dream(datetime, msTime/(1000 * 60 * 60).toDouble(), "My Dream 222")
+        val appUuid = sharedPref.getString("UUID", null)
+        if (appUuid != null)
+            database.child("dream").child(appUuid).child(UUID.randomUUID().toString()).setValue(user)
+        else
+            Log.d("Database", "APP UUID IS NULL")
     }
 
     fun finishSleepMode() {
@@ -218,7 +238,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         text_main_logo.setTextColor(ContextCompat.getColor(this, R.color.gray))
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         openDialogStatus = false
-        isSleepMode = false
+        if (isSleepMode) {
+            uploadFirebase()
+            isSleepMode = false
+        }
     }
 
     fun showCountDown() {
