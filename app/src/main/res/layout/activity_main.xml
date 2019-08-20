@@ -42,7 +42,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-        
+
         <TextView
                 android:id="@+id/text_main_time"
                 android:layout_width="wrap_content"
@@ -54,7 +54,24 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
-                tools:text="12 : 34"/>
+                tools:text="12 : 34"
+                tools:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/text_main_stop_swatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="00:00:00"
+                android:textColor="#b9bed1"
+                android:textSize="60sp"
+                android:fontFamily="@font/questrial_regular"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/image_main_onoff"
+                tools:text="01:23:45"
+                tools:visibility="visible"/>
 
         <TextView
                 android:id="@+id/text_main_sleep_guide"

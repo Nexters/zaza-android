@@ -47,7 +47,7 @@ class ImageActivity : BaseActivity<ActivityDatabaseBinding>() {
             .baseUrl("https://us-central1-zaza-249404.cloudfunctions.net/")
             .build()
 
-        val service = retrofit.create(ZazaService::class.java!!)
+        val service = retrofit.create(ZazaService::class.java)
         service.image.enqueue(object : Callback<Image> {
             override fun onResponse(call: Call<Image>, response: Response<Image>) {
                 if (response.code() == 200) {
