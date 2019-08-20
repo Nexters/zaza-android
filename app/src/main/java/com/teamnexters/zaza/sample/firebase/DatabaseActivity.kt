@@ -47,10 +47,10 @@ class DatabaseActivity : BaseActivity<ActivityDatabaseBinding>() {
     private fun getDreams() {
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid != null) {
-            val sortByDatetiem = database.child("dream").orderByKey().equalTo(appUuid)
+            val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
 
             // 전체 데이터를 가져옴
-            sortByDatetiem.addListenerForSingleValueEvent(object : ValueEventListener {
+            sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }

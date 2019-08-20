@@ -3,11 +3,11 @@ package com.teamnexters.zaza
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.content.SharedPreferences
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -21,10 +21,17 @@ import com.teamnexters.zaza.databinding.ActivityMainBinding
 import com.teamnexters.zaza.sample.SampleViewModel
 import com.teamnexters.zaza.sample.firebase.ImageActivity
 import com.teamnexters.zaza.sample.firebase.models.Dream
+import com.teamnexters.zaza.sample.firebase.models.Image
+import com.teamnexters.zaza.sample.firebase.retrofit.ZazaService
 import com.teamnexters.zaza.ui.dream.DreamActivity
 import com.teamnexters.zaza.ui.main.CancelSleepDialog
 import com.teamnexters.zaza.ui.main.SleepReadyDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
@@ -113,7 +120,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             }
         }
 
-        countDownTimer = object: CountDownTimer(COUNT_TIME, COUNT_INTERVAL) {
+        countDownTimer = object : CountDownTimer(COUNT_TIME, COUNT_INTERVAL) {
             override fun onFinish() {
                 cancel()
                 finishSleepMode()
@@ -211,11 +218,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         window.statusBarColor = ContextCompat.getColor(this, R.color.gray_dark)
     }
 
-    fun uploadFirebase() {
+    fun getImage() {
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://us-central1-zaza-249404.cloudfunctions.net/")
+            .build()
+
+        val service = retrofit.create(ZazaService::class.java)
+        service.image.enqueue(object : Callback<Image> {
+            override fun onResponse(call: Call<Image>, response: Response<Image>) {
+                if (response.code() == 200) {
+                    val responseMsg = response.body()
+                    Log.d("Main", "* * * bgd : " + responseMsg?.background_img)
+                    Log.d("Main", "* * * btn : " + responseMsg?.button_img)
+                    uploadFirebase(responseMsg!!.background_img, responseMsg.button_img)
+                }
+            }
+
+            override fun onFailure(call: Call<Image>, t: Throwable) {
+                Log.e("Main", t.toString())
+            }
+        })
+    }
+
+    fun uploadFirebase(buttonImage: String, backgroundImage: String) {
         val datetime = System.currentTimeMillis()
-        Log.d("Main", "sec : ${msTime/(1000)}")
-        Log.d("Main", "hour : ${msTime/(1000 * 60 * 60)}")
-        val user = Dream(datetime, msTime/(1000 * 60 * 60).toDouble(), "My Dream 222")
+        Log.d("Main", "sec : ${msTime / (1000)}")
+        Log.d("Main", "hour : ${msTime / (1000 * 60 * 60).toDouble()}")
+        val user = Dream(datetime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage,"My Dream 333")
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid != null)
             database.child("dream").child(appUuid).child(UUID.randomUUID().toString()).setValue(user)
@@ -239,7 +269,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         openDialogStatus = false
         if (isSleepMode) {
-            uploadFirebase()
+            // 서버에서 이미지를 받고 난 뒤 FB에 업로드
+            getImage()
             isSleepMode = false
         }
     }
