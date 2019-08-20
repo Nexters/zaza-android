@@ -17,7 +17,7 @@ class AlarmUtil {
 
         val intentS = Intent(context, AlarmReceiver()::class.java)
 
-        intentS.putExtra("sleep", true)
+        intentS.putExtra("sleep", "sleep")
 
         for (i in alarmRealm.weeks.indices) {
             var code = 0
@@ -35,11 +35,12 @@ class AlarmUtil {
              * 취침 알람 rquestId는 Calendar의 날짜 변수로 설정하고 기상 알람은 *10로 설정한다
              */
             cancleAlarm(code, context)
-            cancleAlarm(code * 2, context);
+            cancleAlarm(code * 10, context);
 
             if (alarmRealm.weeks[i]) {
                 val calendar = Calendar.getInstance()
-                if (calendar.get(Calendar.DAY_OF_WEEK) == code && (calendar.get(Calendar.HOUR_OF_DAY) >= alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM)) {
+                if (calendar.get(Calendar.DAY_OF_WEEK) == code && (calendar.get(Calendar.HOUR_OF_DAY) > alarmRealm.sleepH) ||
+                    (( calendar.get(Calendar.HOUR_OF_DAY) == alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM))) {
                     calendar.add(Calendar.DATE, 7);
                 } else {
                     if (calendar.get(Calendar.DAY_OF_WEEK) <= code) {
@@ -65,7 +66,7 @@ class AlarmUtil {
                 c.timeInMillis = wakeTime.time
                 calendar.set(Calendar.HOUR_OF_DAY, c.get(Calendar.HOUR_OF_DAY))
                 calendar.set(Calendar.MINUTE, c.get(Calendar.MINUTE))
-                if ((alarmRealm.sleepH >= alarmRealm.wakeUpH) && alarmRealm.sleepM >= alarmRealm.wakeUpM) {
+                if ((alarmRealm.sleepH > alarmRealm.wakeUpH) ||( (alarmRealm.sleepH == alarmRealm.wakeUpH) && (alarmRealm.sleepM >= alarmRealm.wakeUpM))) {
                     /**
                      * 다음 날 기상 알람 설정
                      */
@@ -73,7 +74,7 @@ class AlarmUtil {
                 }
 
                 val intentW = Intent(context, AlarmReceiver::class.java)
-                intentW.putExtra("sleep", false)
+                intentW.putExtra("wake", "wake")
                 setTriggerTime(context, calendar, intentW, code*10)
                 Log.e(
                     "AlarmUtil:: wake = ", calendar.get(Calendar.YEAR).toString() + ","

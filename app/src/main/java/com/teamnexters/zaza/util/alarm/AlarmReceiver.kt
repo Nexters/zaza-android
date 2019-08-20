@@ -4,8 +4,11 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.os.Build
 import android.os.PowerManager
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -50,12 +53,22 @@ class AlarmReceiver : BroadcastReceiver() {
 
 
 
-        val isSleep = intent?.getBooleanExtra("sleep", false)
+        val isSleep = intent?.getStringExtra("sleep")
+        val isWake = intent?.getStringExtra("wake")
         Log.e("AlarmReceiver", isSleep.toString())
-        if(isSleep!!){
+        if(isSleep.equals("sleep")){
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.MINUTE, 30)
             alarmUtil.afterThirtyAlarm(context, calendar)
+        }
+
+        if(isWake.equals("wake")){
+            val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            when(audioManager.ringerMode){
+                AudioManager.RINGER_MODE_SILENT, AudioManager.RINGER_MODE_VIBRATE ->
+                    vibrator.vibrate(5000)
+            }
         }
 
         val intent = Intent(context, MainActivity::class.java)

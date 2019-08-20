@@ -1,5 +1,6 @@
 package com.teamnexters.zaza.ui.alarm
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamnexters.zaza.R
@@ -35,6 +37,7 @@ class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener
 
     fun subscribeUi() {
 
+        binding.tpAlamr.setIs24HourView(true)
         binding.tpAlamr.setOnTimeChangedListener(TimePicker.OnTimeChangedListener { timePicker: TimePicker, h: Int, m: Int ->
 
         })
@@ -51,6 +54,18 @@ class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener
                 activityBinding.tvWakeHour.text = String.format("%02d", binding.tpAlamr.hour)
                 activityBinding.tvWakeMinute.text = String.format("%02d", binding.tpAlamr.minute)
             }
+
+            val sh = activityBinding.tvSleepHour.text.toString().toInt()
+            val sm = activityBinding.tvSleepMinute.text.toString().toInt()
+            var wh = activityBinding.tvWakeHour.text.toString().toInt()
+            val wm = activityBinding.tvWakeMinute.text.toString().toInt()
+
+            if((sh > wh) ||( (sh == wh) && (sm >= wm)))
+                wh +=24
+
+            val t = Math.abs(sh-wh)
+
+            activityBinding.tvSleepTime.text = "+$t"
             dismiss()
         }
 
@@ -73,21 +88,15 @@ class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener
         return binding.root
     }
 
+
+
     fun getLayoutRes(): Int {
         return R.layout.dialog_alarm_bottom_sheet
     }
 
-    companion object {
-
-        private var _instance: AlarmBottomSheetDialog? = null
-
-        val instance: AlarmBottomSheetDialog
-            get() {
-                if (_instance == null)
-                    _instance = AlarmBottomSheetDialog()
-                return _instance as AlarmBottomSheetDialog
-            }
+    override fun show(manager: FragmentManager, tag: String?) {
+        if(dialog != null && dialog!!.isShowing)
+            return
+        super.show(manager, tag)
     }
-
-
 }
