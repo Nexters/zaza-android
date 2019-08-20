@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.teamnexters.zaza">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".ZazaApplication"
             android:allowBackup="true"
@@ -16,8 +18,8 @@
         </activity>
         <activity android:name=".sample.firebase.ImageActivity">
         </activity>
-        <activity android:name=".ui.dream.DreamActivity">
-        </activity>
+        <activity android:name=".ui.dream.DreamActivity" android:launchMode="singleTop"/>
+
         <activity android:name=".ui.alarm.AlarmActivity">
            
         </activity>

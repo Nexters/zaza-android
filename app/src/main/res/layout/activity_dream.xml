@@ -64,13 +64,11 @@
             android:textColor="#696d74"
             android:padding="10dp"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
             android:layout_width="match_parent"
             android:layout_height="206dp"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/dream_bottom_whitegradation"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:srcCompat="@drawable/dream_bottom_whitegradation"
+            tools:layout_editor_absoluteX="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

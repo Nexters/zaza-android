@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream_detail.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -21,22 +23,36 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     // customized dialog 띄울 때 사용
     lateinit var custom_dialog: CustomDrDialog
     var itemPos: Int = -1
-
+    companion object {
+        var ACTIVE = false      //실행 여부 체크
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_detail)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         custom_dialog = CustomDrDialog(this, this)
 
-        val date = intent.extras.getString("date")
+
+        val date = intent.extras.getLong("date")
+        val during = intent.extras.getDouble("during")
         val img = intent.extras.getString("img")
         itemPos = intent.extras.getInt("itemPos")
+
+        var sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
+        val title = sdf.format(date)
+        sdf = SimpleDateFormat("hh:mm")
+        val sleepTime = sdf.format(date)
+        val wakeTime = sdf.format((date + during * 3600000))
 
         setSupportActionBar(tb_dream_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        tb_title.text = date
+        tb_title.text = title
+        tv_sleepTime.text = sleepTime
+        tv_wakeTime.text = wakeTime
+        tv_duringTime.text = "+$during"
+
         if (img != "") {
             val resourceId = this.resources.getIdentifier(img, "drawable", this.packageName)
             layout_dream_detail.setBackgroundResource(resourceId)
@@ -73,5 +89,13 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
+    override fun onStart() {
+        super.onStart()
+        ACTIVE = true
+    }
 
+    override fun onStop() {
+        super.onStop()
+        ACTIVE = false
+    }
 }

@@ -12,23 +12,25 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhaellopez.circularimageview.CircularImageView
 import com.teamnexters.zaza.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     val date = itemView?.findViewById<TextView>(R.id.tv_date)
     val img = itemView?.findViewById<CircularImageView>(R.id.civ_dream)
-
+    val sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
 
     fun bind (dreamitem: DreamItem, context: Context){
 
-        if(dreamitem.photo != ""){
-            val resourceId = context.resources.getIdentifier(dreamitem.photo, "drawable", context.packageName)
+        if(dreamitem.button_img != ""){
+            val resourceId = context.resources.getIdentifier(dreamitem.button_img, "drawable", context.packageName)
             img?.setImageResource(resourceId)
         }else{
         }
 
-        date?.text = dreamitem.date
+        date?.text = sdf.format(dreamitem.date)
 
     }
 

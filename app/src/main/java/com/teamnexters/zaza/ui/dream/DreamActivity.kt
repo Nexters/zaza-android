@@ -13,7 +13,7 @@ import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream.*
 
 class DreamActivity : AppCompatActivity() {
-    var dreamList = arrayListOf<DreamItem>()
+    lateinit var dreamList:ArrayList<DreamItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,18 +24,8 @@ class DreamActivity : AppCompatActivity() {
             finish()
         }
 
-        dreamList.add(DreamItem("loading", "August 11"))
-        dreamList.add(DreamItem("loading", "August 12"))
-        dreamList.add(DreamItem("loading", "August 13"))
-        dreamList.add(DreamItem("loading", "August 14"))
-        dreamList.add(DreamItem("loading", "August 15"))
-        dreamList.add(DreamItem("loading", "August 16"))
-        dreamList.add(DreamItem("loading", "August 17"))
-        dreamList.add(DreamItem("loading", "August 18"))
-        dreamList.add(DreamItem("loading", "August 19"))
-        dreamList.add(DreamItem("loading", "August 20"))
-        dreamList.add(DreamItem("loading", "August 21"))
-        dreamList.add(DreamItem("loading", "August 22"))
+        dreamList = arrayListOf<DreamItem>()
+        loadDreams()
 
         val dreamAdapter = DreamItemAdapter(this, dreamList)
         rv_dreams.adapter = dreamAdapter
@@ -66,7 +56,7 @@ class DreamActivity : AppCompatActivity() {
         if(requestCode == 3000){
             when(resultCode){
                 Activity.RESULT_OK -> {
-                    if(itemPos != null) {
+                    if(itemPos != null && dreamList[itemPos] != null) {
                         dreamList.removeAt(itemPos)
                         rv_dreams.adapter?.notifyItemRemoved(itemPos)
                         rv_dreams.adapter?.notifyItemRangeChanged((itemPos-1), dreamList.size)
@@ -76,6 +66,14 @@ class DreamActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun loadDreams(){
+        dreamList.add(DreamItem("loading","bg_white",1566023556253,0.2))
+        dreamList.add(DreamItem("loading","bg_white",1566023555701,0.2))
+        dreamList.add(DreamItem("loading","bg_white",1566023555376,0.2))
+        dreamList.add(DreamItem("loading","bg_white",1566023556410,0.2))
+        dreamList.add(DreamItem("loading","bg_white",1566023556095,0.2))
 
     }
 }
