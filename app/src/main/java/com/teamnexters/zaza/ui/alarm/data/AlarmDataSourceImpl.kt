@@ -15,7 +15,6 @@ class AlarmDataSourceImpl :AlarmDataSource{
             val alarm = getAlarm()
             alarm?.forEach { a ->
                 val weeks =  ArrayList<Boolean>()
-                Log.e("getAlarm", a.weeks.toString())
                 a.weeks.forEach { w ->
                     weeks.add(w)
                 }
