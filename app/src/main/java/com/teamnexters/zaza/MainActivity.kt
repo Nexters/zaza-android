@@ -8,10 +8,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Message
+import android.os.*
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -43,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     lateinit var gyro: Sensor
     lateinit var countDownTimer: CountDownTimer
     lateinit var cancelSleepDialog: CancelSleepDialog
+    lateinit var runnable: Runnable
 
     var openDialogStatus = false
     var isSleepMode = false
@@ -51,6 +49,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var sleepReadyDialog = SleepReadyDialog.getInstance()
     var countTime = 10
 
+    // Stop watch var
+    var msTime = 0L
+    var startTime = 0L
+    var timeBuff = 0L
+    var updateTime = 0L
+    var sec = 0
+    var min = 0
+    var milliSec = 0
+    var swHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,10 +164,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 cancelSleepDialog.dismissAllowingStateLoss()
             }
         }
+
+        stopWatch()
+    }
+
+    fun stopWatch() {
+        runnable = object : Runnable {
+            override fun run() {
+                msTime = SystemClock.uptimeMillis() - startTime
+                updateTime = timeBuff + msTime
+                sec = (updateTime / 1000).toInt()
+                min = sec / 60
+                milliSec = (updateTime % 1000).toInt()
+                text_main_stop_swatch.text = "${min}:${sec}:${milliSec}"
+                swHandler.postDelayed(this, 0)
+            }
+        }
     }
 
     fun onSleepMode() {
         sleepReadyDialog.dismissAllowingStateLoss()
+
+        text_main_time.visibility = View.GONE
+        text_main_stop_swatch.visibility = View.VISIBLE
+
         layout_main_root.background = ContextCompat.getDrawable(this, R.drawable.bg_gradient_black)
         image_main_alarm.visibility = View.GONE
         text_main_alarm.visibility = View.GONE
@@ -169,10 +196,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         image_main_onoff.setImageResource(R.drawable.off_switch_btn)
         text_main_logo.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         window.statusBarColor = ContextCompat.getColor(this, R.color.gray_dark)
+
+        // Start StopWatch
+        startTime = SystemClock.uptimeMillis()
+        swHandler.postDelayed(runnable, 0)
+
     }
 
     fun finishSleepMode() {
         hideCountDown()
+
+        text_main_time.visibility = View.VISIBLE
+        text_main_stop_swatch.visibility = View.GONE
+
         layout_main_root.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         image_main_alarm.visibility = View.VISIBLE
         text_main_alarm.visibility = View.VISIBLE
