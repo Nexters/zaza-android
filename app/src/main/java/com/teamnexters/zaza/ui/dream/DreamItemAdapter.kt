@@ -42,7 +42,7 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
 
             detailIntent.putExtra("date", items[position].date)
             detailIntent.putExtra("during", items[position].during)
-            detailIntent.putExtra("img", items[position].background_img)
+            detailIntent.putExtra("backgroundImg", items[position].background_img)
             detailIntent.putExtra("itemPos", position)
 
             if(!DreamDetailActivity.ACTIVE)

@@ -3,6 +3,9 @@ package com.teamnexters.zaza.ui.dream
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +15,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream_detail.*
+import kotlinx.android.synthetic.main.activity_image.*
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,12 +37,28 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_detail)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        val imageLoadTarget: Target = object : Target {
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                Log.d("image", "Prepare Load")
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                Log.d("image", "Failed")
+            }
+
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                Log.d("image", "Imaged Loaded")
+                layout_dream_detail.background = BitmapDrawable(resources, bitmap)
+            }
+
+        }
+
         custom_dialog = CustomDrDialog(this, this)
 
 
         val date = intent.extras.getLong("date")
         val during = intent.extras.getDouble("during")
-        val img = intent.extras.getString("img")
+        val backgroundImg = intent.extras.getString("backgroundImg")
         itemPos = intent.extras.getInt("itemPos")
 
         var sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
@@ -53,11 +76,11 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         tv_wakeTime.text = wakeTime
         tv_duringTime.text = "+$during"
 
-        if (img != "") {
-            val resourceId = this.resources.getIdentifier(img, "drawable", this.packageName)
-            layout_dream_detail.setBackgroundResource(resourceId)
-        }
-
+//        if (backgroundImg != "") {
+//            val resourceId = this.resources.getIdentifier(backgroundImg, "drawable", this.packageName)
+//            layout_dream_detail.setBackgroundResource(resourceId)
+//        }
+        Picasso.get().load(backgroundImg).placeholder(R.drawable.loading).into(imageLoadTarget)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
