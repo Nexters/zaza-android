@@ -6,7 +6,7 @@
 
         <variable
                 name="alarmDialogView"
-                type="com.teamnexters.zaza.ui.alarm.AlarmBottomSheetDialog" />
+                type="com.nexters.zaza.ui.alarm.AlarmBottomSheetDialog" />
 
         <!--선택 선언 3_3 (ViewModel 사용 시)-->
         <!--<variable-->
