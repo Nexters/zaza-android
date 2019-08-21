@@ -19,7 +19,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                tools:text="Date"
                 android:layout_gravity="center"
                 android:id="@+id/tb_title"
                 android:textSize="19sp"
@@ -41,7 +41,7 @@
             android:id="@+id/imageView5"/>
 
     <TextView
-            android:text="01:30"
+            tools:text="01:30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_sleepTime"
@@ -55,7 +55,7 @@
             android:fontFamily="@font/gilroy_light"/>
 
     <TextView
-            android:text="08:30"
+            tools:text="08:30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_wakeTime"
@@ -93,7 +93,7 @@
             android:textColor="#8890ab"/>
 
     <TextView
-            android:text="+8.0"
+            tools:text="+8.0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_duringTime"

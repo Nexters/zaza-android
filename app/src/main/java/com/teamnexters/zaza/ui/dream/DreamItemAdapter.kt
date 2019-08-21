@@ -39,7 +39,6 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
     override fun onBindViewHolder(holder: DreamItemViewHolder, position: Int) {
         holder?.bind(items[position], context)
         holder?.itemView.setOnClickListener {
-
             detailIntent.putExtra("date", items[position].date)
             detailIntent.putExtra("during", items[position].during)
             detailIntent.putExtra("backgroundImg", items[position].background_img)
@@ -48,6 +47,7 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
             if(!DreamDetailActivity.ACTIVE)
                 (context as DreamActivity).startActivityForResult(detailIntent, 3000)
         }
+
     }
 
 
