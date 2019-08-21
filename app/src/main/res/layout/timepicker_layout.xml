@@ -6,5 +6,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <com.nexters.zaza.ui.alarm.view.CustomPickerView
+            android:id="@+id/picker_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:overScrollMode="always"
+            android:theme="@style/PickerTheme"
+            android:layout_marginRight="17dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintRight_toLeftOf="@id/tv_colon"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    <com.nexters.zaza.ui.alarm.view.CustomPickerView
+            android:id="@+id/picker_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/PickerTheme"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="17dp"
+            app:layout_constraintLeft_toRightOf="@id/tv_colon"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_round_purple"
+            android:alpha="0.4"
+
+            app:layout_constraintTop_toTopOf="@id/picker_minute"
+            app:layout_constraintBottom_toBottomOf="@id/picker_minute"/>
+
+    <TextView
+            android:id="@+id/tv_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_dark"
+            android:text=":"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/picker_minute"
+            app:layout_constraintTop_toTopOf="@id/picker_hour"
+            android:textSize="31sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

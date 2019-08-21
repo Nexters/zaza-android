@@ -24,44 +24,36 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
 
 
     // customized dialog 띄울 때 사용
-    lateinit var custom_dialog: CustomDrDialog
+    lateinit var custom_dialog: CustomDreamDialog
     var itemPos: Int = -1
+
     companion object {
         var ACTIVE = false      //실행 여부 체크
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_detail)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        val imageLoadTarget: Target = object : Target {
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                Log.d("image", "Prepare Load")
-            }
 
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                Log.d("image", "Failed")
-            }
 
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                Log.d("image", "Imaged Loaded")
-                layout_dream_detail.background = BitmapDrawable(resources, bitmap)
-            }
-
-        }
-
-        custom_dialog = CustomDrDialog(this, this)
+        custom_dialog = CustomDreamDialog(this, this)
 
 
         val date = intent.extras.getLong("date")
         val during = intent.extras.getDouble("during")
-        val backgroundImg = intent.extras.getString("backgroundImg")
+
         itemPos = intent.extras.getInt("itemPos")
 
         var sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
         val title = sdf.format(date)
         sdf = SimpleDateFormat("hh:mm")
+        val sdf1 = SimpleDateFormat("HH:mm")
+        sdf1.timeZone = TimeZone.getTimeZone("UTC")
         val sleepTime = sdf.format(date)
         val wakeTime = sdf.format((date + during * 3600000))
+        val duringTime = during * 3600000
+
 
         setSupportActionBar(tb_dream_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -70,13 +62,12 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         tb_title.text = title
         tv_sleepTime.text = sleepTime
         tv_wakeTime.text = wakeTime
-        tv_duringTime.text = "+$during"
+        tv_duringTime.text = sdf1.format(duringTime)
+//        tv_duringTime.text = sdf.format(during*360000)
+    }
 
-//        if (backgroundImg != "") {
-//            val resourceId = this.resources.getIdentifier(backgroundImg, "drawable", this.packageName)
-//            layout_dream_detail.setBackgroundResource(resourceId)
-//        }
-        Picasso.get().load(backgroundImg).into(imageLoadTarget)
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -111,6 +102,24 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         ACTIVE = true
+
+        val backgroundImg = intent.extras.getString("backgroundImg")
+        Picasso.get().load(backgroundImg).into(object : Target {
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                Log.d("image", "Prepare Load")
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                Log.d("image", "Failed")
+                layout_dream_detail.setBackgroundResource(R.drawable.bg_white)
+            }
+
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                Log.d("image", "Imaged Loaded")
+                layout_dream_detail.background = BitmapDrawable(resources, bitmap)
+            }
+
+        })
     }
 
     override fun onStop() {

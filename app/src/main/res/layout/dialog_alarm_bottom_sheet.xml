@@ -15,26 +15,40 @@
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingRight="28dp"
+        android:paddingLeft="28dp">
 
     <TimePicker
             android:id="@+id/tp_alamr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
-
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             >
     </TimePicker>
 
+    <com.nexters.zaza.ui.alarm.view.CustomTimePickerView
+            android:id="@+id/timepicker_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view_btns">
+
+    </com.nexters.zaza.ui.alarm.view.CustomTimePickerView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view_btns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/tp_alamr">
+            app:layout_constraintTop_toBottomOf="@id/timepicker_custom">
         <Button
                 android:id="@+id/btn_dialog_alarm_cancel"
                 android:layout_width="wrap_content"

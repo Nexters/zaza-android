@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.nexters.zaza.MainActivity
 import com.nexters.zaza.ZazaConstant
 import com.nexters.zaza.ui.alarm.data.vo.AlarmVO
 import com.nexters.zaza.util.getAlarm
@@ -86,10 +87,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 vibrator.cancel()
         }
 
-
-//        val intent = Intent(context, MainActivity::class.java)
-//        context.startActivity(intent)
-        val intent = Intent(ZazaConstant.BC_ALARM_TIME)
-        context.sendBroadcast(intent)
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
     }
 }
