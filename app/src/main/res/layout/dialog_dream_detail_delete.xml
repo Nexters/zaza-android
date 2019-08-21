@@ -1,47 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="279dp"
-              android:layout_height="422dp"
-              android:background="@drawable/shape_dialog_dream_delete"
-              android:orientation="vertical">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="#6dffffff">
 
     <TextView
-            android:text="꿈을 삭제할까요?\n삭제한 꿈은\n복구할 수 없습니다."
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_delete"
-            android:layout_weight="1"
-            android:textSize="30sp"
+            android:layout_marginTop="44dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="35dp"
             android:gravity="center"
-            android:layout_margin="20dp"
-            android:lineSpacingExtra="8sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
-    <LinearLayout
+            android:text="꿈을 삭제할까요?\n삭제한 꿈은 복구할 수 없습니다."
+            android:textSize="15sp"
+            android:textColor="#707890"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#babdd6"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Button
-                android:text="취소"
-                android:textSize="25sp"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_no"
-                android:layout_weight="1"
-                android:background="@drawable/shape_delete_no"/>
-        <Button
+
+        <View
+                android:id="@+id/view_cancel_dream_line"
+                android:layout_width="1dp"
+                android:layout_height="50dp"
+                android:background="#babdd6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_delete_yes"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="삭제"
-                android:textSize="25sp"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_yes"
-                android:layout_weight="1"
-                android:background="@drawable/shape_delete_yes"/>
-    </LinearLayout>
+                android:textSize="15sp"
+                android:textColor="#707890"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_cancel_dream_line"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_delete_no"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="취소"
+                android:textSize="15sp"
+                android:textColor="#707890"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/view_cancel_dream_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
