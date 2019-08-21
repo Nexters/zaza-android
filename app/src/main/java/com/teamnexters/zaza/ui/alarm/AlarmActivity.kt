@@ -15,6 +15,7 @@ import com.teamnexters.zaza.R
 import com.teamnexters.zaza.base.BaseActivity
 import com.teamnexters.zaza.databinding.ActivityAlarmBinding
 import com.teamnexters.zaza.ui.alarm.data.vo.AlarmVO
+import com.teamnexters.zaza.util.SharedUtil
 import com.teamnexters.zaza.util.alarm.AlarmUtil
 import com.teamnexters.zaza.util.getAlarm
 import com.teamnexters.zaza.util.insertAlarm
@@ -32,12 +33,10 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
     }
 
     val alarmUtil = AlarmUtil.instance
-//    lateinit var alarmDialog: AlarmBottomSheetDialog
+    lateinit var sharedUtil: SharedUtil
 
     fun initStartView() {
-
-//        alarmDialog = AlarmBottomSheetDialog()
-
+        sharedUtil = SharedUtil(this)
     }
 
     /**
@@ -79,6 +78,10 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
             wh = Math.abs(alarm.sleepH - wh)
 
             viewDataBinding.tvSleepTime.text = "+$wh"
+
+            val text = sharedUtil.getStringPreference(SharedUtil.ALARM_TEXT, " ")
+
+            viewDataBinding.etAlarm.setText(text)
 
          }
         )
@@ -183,6 +186,9 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
                 calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE) )
             alarmVM.updateAlarm(alarmVO)
             alarmUtil.registAlarm(this, alarmVO)
+
+            sharedUtil.saveStringPreference(SharedUtil.ALARM_TEXT, viewDataBinding.etAlarm.text.toString())
+
             finish()
         }
 

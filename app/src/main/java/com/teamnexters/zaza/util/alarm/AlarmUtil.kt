@@ -75,6 +75,7 @@ class AlarmUtil {
 
                 val intentW = Intent(context, AlarmReceiver::class.java)
                 intentW.putExtra("wake", "wake")
+                intentW.putExtra("state", "alarmOn")
                 setTriggerTime(context, calendar, intentW, code*10)
                 Log.e(
                     "AlarmUtil:: wake = ", calendar.get(Calendar.YEAR).toString() + ","
