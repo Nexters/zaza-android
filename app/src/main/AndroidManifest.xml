@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.teamnexters.zaza">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name = "android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
             android:name=".ZazaApplication"
             android:allowBackup="true"
@@ -13,8 +14,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".MemberActivity">
+        </activity>
         <activity android:name=".ui.dream.DreamDetailActivity"/>
-
         <activity android:name=".sample.firebase.DatabaseActivity">
         </activity>
         <activity android:name=".sample.firebase.ImageActivity">
@@ -22,17 +24,17 @@
         <activity android:name=".ui.dream.DreamActivity">
         </activity>
         <activity android:name=".ui.alarm.AlarmActivity">
-
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <receiver android:name=".util.alarm.AlarmReceiver">
         </receiver>
-
     </application>
 
 </manifest>

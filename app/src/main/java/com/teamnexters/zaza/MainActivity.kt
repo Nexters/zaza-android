@@ -244,10 +244,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     }
 
     fun uploadFirebase(buttonImage: String, backgroundImage: String) {
-        val datetime = System.currentTimeMillis()
         Log.d("Main", "sec : ${msTime / (1000)}")
         Log.d("Main", "hour : ${msTime / (1000 * 60 * 60).toDouble()}")
-        val user = Dream(datetime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage,"My Dream 333")
+        val user = Dream(startTime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage,"My Dream 333")
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid != null)
             database.child("dream").child(appUuid).child(UUID.randomUUID().toString()).setValue(user)
@@ -307,8 +306,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 startActivity(sampleIntent)
             }
             text_main_logo -> {
-                val nextIntent = Intent(this, ImageActivity::class.java)
-                startActivity(nextIntent)
+//                val nextIntent = Intent(this, ImageActivity::class.java)
+                val intent = Intent(this, MemberActivity::class.java)
+                startActivity(intent)
             }
             image_main_onoff -> {
                 if (isSleepMode) {

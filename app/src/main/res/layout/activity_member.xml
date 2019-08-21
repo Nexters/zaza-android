@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MemberActivity">
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="zaza를 만든 사람들"
+                android:textSize="25sp"
+                android:fontFamily="@font/gilroy_bold" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/man_7"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="zaza는 내가 지킨다. 김대경"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/woman_5"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="잠자는 너를 깨우는 여신, 박지혜"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/woman_6"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="이 수려한 컨셈은 내가 만들었어. 최연진"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/boy_4"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="꿈을 담는 마술사. 노우석"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/boy_5"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="모르는거 있으면 다 물어봐. 임주현"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/boy_2"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="잘 때가 가장 행복해. 손종국"
+                android:textSize="15sp"
+                android:fontFamily="@font/gilroy_light" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copyright 2019.\nteam zaza in NEXTERS.\nAll rights reserved"
+                android:textSize="12sp"
+                android:lineSpacingExtra="3dp"
+                android:fontFamily="@font/gilroy_light"
+                android:textColor="@color/gray"
+                android:gravity="center"/>
+        
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
