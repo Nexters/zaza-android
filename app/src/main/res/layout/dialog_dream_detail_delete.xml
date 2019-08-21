@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_width="279dp"
+              android:layout_height="422dp"
               android:background="@drawable/shape_dialog_dream_delete"
               android:orientation="vertical">
 
@@ -12,7 +12,7 @@
             android:id="@+id/tv_delete"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:layout_margin="20dp"
             android:lineSpacingExtra="8sp"
             android:fontFamily="sans-serif"
@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_delete_no"/>
         <Button
-                android:text="확인"
+                android:text="삭제"
                 android:textSize="25sp"
                 android:fontFamily="sans-serif"
                 android:textStyle="bold"

@@ -35,27 +35,30 @@ class DreamActivity : AppCompatActivity() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         database = FirebaseDatabase.getInstance().reference
-        sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
-        appUuid = sharedPref.getString("UUID", null)
-//        appUuid = "a1c0532d-d11f-4f7c-a7fb-69fcc56f4cd0"
+//        sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+//        appUuid = sharedPref.getString("UUID", null)
+        appUuid = "a1c0532d-d11f-4f7c-a7fb-69fcc56f4cd0"
 
         dreamList = arrayListOf<DreamItem>()
+        loadDreams(appUuid)
 
         layout_btn_dream_close.setOnClickListener {
             finish()
         }
 
 
-        loadDreams(appUuid)
 
         val dreamAdapter = DreamItemAdapter(this, dreamList)
         rv_dreams.adapter = dreamAdapter
+        rv_dreams.adapter?.notifyDataSetChanged()
 
         val gm = GridLayoutManager(this, 3)
 
         rv_dreams.layoutManager = gm
         rv_dreams.setHasFixedSize(true)
+
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
@@ -106,36 +109,30 @@ class DreamActivity : AppCompatActivity() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (dsp in dataSnapshot.getChildren()) {
+                    var dId:String? = null
+                    var bgImg:String? = null
+                    var btImg:String? = null
+                    var dateTime:Long? = null
+                    var during:Double? = null
 
                     dsp.children.forEach { it ->
-                        val dId = it.key
-                        val bgImg = it.child("background_image").value.toString()
-                        val btImg = it.child("button_image").value.toString()
-                        val dateTime = it.child("datetime").value as Long
-                        val during = it.child("during").value as Double
+                        dId = it.key
+                        bgImg = it.child("background_image").value.toString()
+                        btImg = it.child("button_image").value.toString()
+                        dateTime = it.child("datetime").value as Long
+                        during = it.child("during").value as Double
                         if (dId != null) {
-                            dreamList.add(DreamItem(dId, btImg, bgImg, dateTime, during))
+                            dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                         }
                     }
                     rv_dreams.adapter?.notifyDataSetChanged()
-
                 }
-
-//                    Log.d("test", myList.toString())
             }
+
         })
 
+        if(dreamList.isEmpty()){
 
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-1-1.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-1-2.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-1-3.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-4-2.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-4-3.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("https://storage.googleapis.com/zaza-249404.appspot.com/png_box/gradation_type-07-5-1.png","https://storage.googleapis.com/zaza-249404.appspot.com/background_img/gradation_type-07.png",1566023556253,0.2))
-//        dreamList.add(DreamItem("loading","bg_white",1566023555701,0.2))
-//        dreamList.add(DreamItem("loading","bg_white",1566023555376,0.2))
-//        dreamList.add(DreamItem("loading","bg_white",1566023556410,0.2))
-//        dreamList.add(DreamItem("loading","bg_white",1566023556095,0.2))
-
+        }
     }
 }

@@ -18,7 +18,7 @@ import com.teamnexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream.*
 
 
-class CustomDrDialog(context: Context, okListener: View.OnClickListener) : Dialog(context){
+class CustomDreamDialog(context: Context, okListener: View.OnClickListener) : Dialog(context){
 
     lateinit var btn_yes:Button
     lateinit var btn_no:Button
