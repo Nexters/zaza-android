@@ -92,7 +92,6 @@ class AlarmReceiver : BroadcastReceiver() {
         }
 
 
-
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
 
