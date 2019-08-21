@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -35,9 +36,10 @@ class DreamActivity : AppCompatActivity() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         database = FirebaseDatabase.getInstance().reference
-//        sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
-//        appUuid = sharedPref.getString("UUID", null)
-        appUuid = "a1c0532d-d11f-4f7c-a7fb-69fcc56f4cd0"
+        sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+        appUuid = sharedPref.getString("UUID", null)
+
+//        appUuid = "37bd17ec-6980-48f4-bb0a-bfef8b634437"
 
         dreamList = arrayListOf<DreamItem>()
         loadDreams(appUuid)
@@ -79,11 +81,16 @@ class DreamActivity : AppCompatActivity() {
         if (requestCode == 3000) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    if (itemPos != null && dreamList[itemPos] != null) {
+                    if (itemPos != null) {
                         deleteDream(appUuid, dreamList[itemPos].id)
                         dreamList.removeAt(itemPos)
                         rv_dreams.adapter?.notifyItemRemoved(itemPos)
                         rv_dreams.adapter?.notifyItemRangeChanged((itemPos - 1), dreamList.size)
+                    }
+                    if(dreamList.isEmpty()){
+                        tv_dream_empty.visibility = TextView.VISIBLE
+                    }else{
+                        tv_dream_empty.visibility = TextView.GONE
                     }
                 }
                 else -> {
@@ -104,35 +111,40 @@ class DreamActivity : AppCompatActivity() {
         // 전체 데이터를 가져옴
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (dsp in dataSnapshot.getChildren()) {
-                    var dId:String? = null
-                    var bgImg:String? = null
-                    var btImg:String? = null
-                    var dateTime:Long? = null
-                    var during:Double? = null
+                if(!dataSnapshot.hasChildren()){
+                    tv_dream_empty.visibility = TextView.VISIBLE
+                }else{
+                    tv_dream_empty.visibility = TextView.GONE
 
-                    dsp.children.forEach { it ->
-                        dId = it.key
-                        bgImg = it.child("background_image").value.toString()
-                        btImg = it.child("button_image").value.toString()
-                        dateTime = it.child("datetime").value as Long
-                        during = it.child("during").value as Double
-                        if (dId != null) {
-                            dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
+                    for (dsp in dataSnapshot.getChildren()) {
+                        var dId:String?
+                        var bgImg:String?
+                        var btImg:String?
+                        var dateTime:Long?
+                        var during:Double?
+
+                        dsp.children.forEach { it ->
+                            dId = it.key
+                            bgImg = it.child("background_image").value.toString()
+                            btImg = it.child("button_image").value.toString()
+                            dateTime = it.child("datetime").value as Long
+                            during = it.child("during").value as Double
+                            if (dId != null) {
+                                dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
+                            }
                         }
+                        rv_dreams.adapter?.notifyDataSetChanged()
                     }
-                    rv_dreams.adapter?.notifyDataSetChanged()
                 }
+
             }
 
         })
 
-        if(dreamList.isEmpty()){
 
-        }
     }
 }

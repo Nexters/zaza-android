@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:background="#6dffffff">
+        android:background="@drawable/bg_delete_dream">
 
     <TextView
             android:layout_width="wrap_content"
