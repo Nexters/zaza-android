@@ -1,6 +1,7 @@
 package com.teamnexters.zaza
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -46,6 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     val COUNT_INTERVAL: Long = 1000
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
+    lateinit var broadcastReceiver: BroadcastReceiver
     lateinit var sharedPref: SharedPreferences
     lateinit var sampleViewModel: SampleViewModel
     lateinit var sensorManager: SensorManager
@@ -84,6 +86,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         } else {
             Log.d("MAIN", "The uuid already has been generated.")
             Log.d("MAIN", appUuid)
+        }
+
+        if (broadcastReceiver == null) {
+            broadcastReceiver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    //
+                }
+
+            }
         }
 
         image_main_dream.setOnClickListener(this)
@@ -246,7 +257,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     fun uploadFirebase(buttonImage: String, backgroundImage: String) {
         Log.d("Main", "sec : ${msTime / (1000)}")
         Log.d("Main", "hour : ${msTime / (1000 * 60 * 60).toDouble()}")
-        val user = Dream(startTime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage,"My Dream 333")
+        val user = Dream(startTime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage, "My Dream 333")
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid != null)
             database.child("dream").child(appUuid).child(UUID.randomUUID().toString()).setValue(user)
@@ -319,7 +330,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 }
             }
 
-            image_main_alarm ->{
+            image_main_alarm -> {
                 val sampleIntent = Intent(this, AlarmActivity::class.java)
                 startActivity(sampleIntent)
             }

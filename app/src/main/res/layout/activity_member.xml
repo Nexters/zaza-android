@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="zaza는 내가 지킨다. 김대경"
+                android:text="런칭해서 넘나 기뻫. 김대경"
                 android:textSize="15sp"
                 android:fontFamily="@font/gilroy_light" />
 
