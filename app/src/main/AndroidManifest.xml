@@ -32,6 +32,8 @@
         </activity>
         <receiver android:name=".util.alarm.AlarmReceiver">
         </receiver>
+        <service android:name=".util.alarm.RingtoneService" android:enabled="true">
+        </service>
 
     </application>
 
