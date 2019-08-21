@@ -21,8 +21,8 @@
         </activity>
         <activity android:name=".sample.firebase.ImageActivity">
         </activity>
-        <activity android:name=".ui.dream.DreamActivity">
-        </activity>
+        <activity android:name=".ui.dream.DreamActivity" android:launchMode="singleTop"/>
+
         <activity android:name=".ui.alarm.AlarmActivity">
         </activity>
         <activity android:name=".MainActivity">
@@ -35,6 +35,8 @@
 
         <receiver android:name=".util.alarm.AlarmReceiver">
         </receiver>
+        <service android:name=".util.alarm.RingtoneService" android:enabled="true">
+        </service>
     </application>
 
 </manifest>

@@ -55,6 +55,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val isSleep = intent?.getStringExtra("sleep")
         val isWake = intent?.getStringExtra("wake")
+        val state = intent?.getStringExtra("state")
         Log.e("AlarmReceiver", isSleep.toString())
         if(isSleep.equals("sleep")){
             val calendar = Calendar.getInstance()
@@ -62,14 +63,35 @@ class AlarmReceiver : BroadcastReceiver() {
             alarmUtil.afterThirtyAlarm(context, calendar)
         }
 
+        val serviceIntent = Intent(context, RingtoneService::class.java)
+        serviceIntent.putExtra("state", state)
+
         if(isWake.equals("wake")){
             val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
             when(audioManager.ringerMode){
-                AudioManager.RINGER_MODE_SILENT, AudioManager.RINGER_MODE_VIBRATE ->
-                    vibrator.vibrate(5000)
+               AudioManager.RINGER_MODE_NORMAL->
+                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                       context.startForegroundService(serviceIntent)
+                   } else{
+                       context.startService(serviceIntent)
+                   }
             }
+            if(state.equals("alarmOn")) {
+                val timings = longArrayOf(100, 100, 400, 200, 400)
+                val amplitudes = intArrayOf(0, 50, 0, 100, 0, 50, 0, 150)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, 0))
+                } else{
+                    vibrator.vibrate(timings,0)
+                }
+            }
+            else
+                vibrator.cancel()
         }
+
+
 
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
