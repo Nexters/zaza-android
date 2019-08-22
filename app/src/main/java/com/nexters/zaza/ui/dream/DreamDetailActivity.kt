@@ -6,17 +6,16 @@ import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.nexters.zaza.R
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import com.nexters.zaza.R
 import kotlinx.android.synthetic.main.activity_dream_detail.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,8 +33,25 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_detail)
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        layout_dream_detail.visibility = View.INVISIBLE
+        layout_dream_detail.tag = object : Target {
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                Log.d("image", "Prepare Load")
+            }
 
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                Log.d("image", "Failed")
+                layout_dream_detail.setBackgroundResource(R.drawable.bg_white)
+                layout_dream_detail.visibility = View.VISIBLE
+            }
+
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                Log.d("image", "Imaged Loaded")
+                layout_dream_detail.background = BitmapDrawable(resources, bitmap)
+                layout_dream_detail.visibility = View.VISIBLE
+            }
+        }
 
         custom_dialog = CustomDreamDialog(this, this)
 
@@ -100,26 +116,12 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onStart() {
-        super.onStart()
         ACTIVE = true
 
         val backgroundImg = intent.extras.getString("backgroundImg")
-        Picasso.get().load(backgroundImg).into(object : Target {
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                Log.d("image", "Prepare Load")
-            }
+        Picasso.get().load(backgroundImg).into(layout_dream_detail.tag as Target)
 
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                Log.d("image", "Failed")
-                layout_dream_detail.setBackgroundResource(R.drawable.bg_white)
-            }
-
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                Log.d("image", "Imaged Loaded")
-                layout_dream_detail.background = BitmapDrawable(resources, bitmap)
-            }
-
-        })
+        super.onStart()
     }
 
     override fun onStop() {

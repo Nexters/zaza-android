@@ -23,6 +23,8 @@ class SleepClockDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_sleep_clock, container)
 
+        dialog!!.window.setBackgroundDrawableResource(R.drawable.bg_r21)
+
         view.text_sleep_clock_subtext.text = subtext
         view.text_sleep_clock_button.setOnClickListener {
             dismissAllowingStateLoss()
