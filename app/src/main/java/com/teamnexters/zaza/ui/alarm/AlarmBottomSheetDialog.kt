@@ -48,11 +48,11 @@ class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener
 
         binding.btnDialogAlarmSave.setOnClickListener {
             if (tag.equals("sleep")) {
-                activityBinding.tvSleepHour.text = String.format("%02d", binding.tpAlamr.hour)
-                activityBinding.tvSleepMinute.text = String.format("%02d", binding.tpAlamr.minute)
+                activityBinding.tvSleepHour.text = String.format("%02d", binding.timepickerCustom.getHour())
+                activityBinding.tvSleepMinute.text = String.format("%02d", binding.timepickerCustom.getMinute())
             } else {
-                activityBinding.tvWakeHour.text = String.format("%02d", binding.tpAlamr.hour)
-                activityBinding.tvWakeMinute.text = String.format("%02d", binding.tpAlamr.minute)
+                activityBinding.tvWakeHour.text = String.format("%02d", binding.timepickerCustom.getHour())
+                activityBinding.tvWakeMinute.text = String.format("%02d", binding.timepickerCustom.getMinute())
             }
 
             val sh = activityBinding.tvSleepHour.text.toString().toInt()
