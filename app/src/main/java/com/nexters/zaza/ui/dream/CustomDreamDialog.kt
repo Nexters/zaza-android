@@ -22,7 +22,7 @@ class CustomDreamDialog(context: Context, okListener: View.OnClickListener) : Di
         super.onCreate(savedInstanceState)
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)                   //다이얼로그의 타이틀 바 제거
-        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))  //다이얼로그 배경 투명
+//        window.setBackgroundDrawable(ColorDrawable(Color.WHITE))  //다이얼로그 배경 하양
         setContentView(R.layout.dialog_dream_detail_delete)
 
         tv_delete_yes = findViewById(R.id.tv_delete_yes)
