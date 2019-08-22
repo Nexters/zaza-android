@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,21 +17,26 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import com.teamnexters.zaza.R
 import com.teamnexters.zaza.sample.firebase.models.Image
 import com.teamnexters.zaza.sample.firebase.retrofit.ZazaService
 import kotlinx.android.synthetic.main.activity_dream.*
+import kotlinx.android.synthetic.main.activity_dream_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 
 class DreamActivity : AppCompatActivity() {
     lateinit var dreamList: ArrayList<DreamItem>
     lateinit var sharedPref: SharedPreferences
     private lateinit var database: DatabaseReference
     private var appUuid = ""
+    private val mcontext = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +46,7 @@ class DreamActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
         sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
         appUuid = sharedPref.getString("UUID", null)
-
+        Log.d("id",appUuid)
 //        appUuid = "37bd17ec-6980-48f4-bb0a-bfef8b634437"
 
         dreamList = arrayListOf<DreamItem>()
@@ -48,17 +56,10 @@ class DreamActivity : AppCompatActivity() {
             finish()
         }
 
-
-
-        val dreamAdapter = DreamItemAdapter(this, dreamList)
-        rv_dreams.adapter = dreamAdapter
-        rv_dreams.adapter?.notifyDataSetChanged()
-
         val gm = GridLayoutManager(this, 3)
 
         rv_dreams.layoutManager = gm
         rv_dreams.setHasFixedSize(true)
-
     }
 
 
@@ -99,13 +100,17 @@ class DreamActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        rv_dreams.adapter?.notifyDataSetChanged()
+        super.onStart()
+    }
+
     private fun deleteDream(appUuid: String, dreamId:String) {
         database.child("dream").child(appUuid).child(dreamId).removeValue()
 //        Log.d("")
     }
 
     private fun loadDreams(appUuid: String) {
-
         val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
 
         // 전체 데이터를 가져옴
@@ -137,7 +142,8 @@ class DreamActivity : AppCompatActivity() {
                                 dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                             }
                         }
-                        rv_dreams.adapter?.notifyDataSetChanged()
+                        val dreamAdapter = DreamItemAdapter(mcontext, dreamList)
+                        rv_dreams.adapter = dreamAdapter
                     }
                 }
 

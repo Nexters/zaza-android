@@ -24,36 +24,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
     val date = itemView?.findViewById<TextView>(R.id.tv_date)
     val civ = itemView?.findViewById<CircularImageView>(R.id.civ_dream)
     val sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
 
     fun bind(dreamitem: DreamItem, context: Context) {
-
-        //        if(dreamitem.button_img != ""){
-//                    val resourceId = context.resources.getIdentifier(dreamitem.button_img, "drawable", context.packageName)
-//                    civ?.setImageResource(resourceId)
-        //        }else{
-        //        }
-
-        Picasso.get().load(dreamitem.button_img).resize(92, 92).into(object : Target {
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                Log.d("image", "Prepare Load")
-            }
-
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                Log.d("image", "Failed")
-                civ?.setImageResource(R.mipmap.ic_launcher)
-            }
-
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                Log.d("image", "Imaged Loaded")
-                civ.setImageDrawable(BitmapDrawable(context.resources, bitmap))
-
-            }
-        })
 
         date?.text = sdf.format(dreamitem.date)
     }
