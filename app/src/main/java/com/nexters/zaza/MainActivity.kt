@@ -207,7 +207,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 totalSec = (updateTime / 1000).toInt()
                 sec = totalSec % 60
                 min = totalSec / 60 % 60
-                hour = min / 60
+                hour = totalSec / (60 * 60)
                 text_main_stop_swatch.text = getString(R.string.time_format, hour, min, sec)
                 swHandler.postDelayed(this, 0)
             }
@@ -246,8 +246,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             override fun onResponse(call: Call<Image>, response: Response<Image>) {
                 if (response.code() == 200) {
                     val responseMsg = response.body()
-                    Log.d("Main", "* * * bgd : " + responseMsg?.background_img)
-                    Log.d("Main", "* * * btn : " + responseMsg?.button_img)
                     uploadFirebase(responseMsg!!.background_img, responseMsg.button_img)
                 }
             }
