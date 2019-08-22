@@ -97,7 +97,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                     }
                 }
             }
-
         }
 
         image_main_dream.setOnClickListener(this)
@@ -196,16 +195,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             }
         }
 
-        stopWatch()
+        setStopWatch()
     }
 
-    fun stopWatch() {
+    fun setStopWatch() {
         runnable = object : Runnable {
             override fun run() {
                 msTime = SystemClock.uptimeMillis() - startTime
                 updateTime = timeBuff + msTime
-                sec = (updateTime / 1000).toInt()
-                min = sec / 60
+                sec = (updateTime / 1000 % 60).toInt()
+                min = sec / 60 % 60
                 hour = min / 60
                 text_main_stop_swatch.text = getString(R.string.time_format, hour, min, sec)
                 swHandler.postDelayed(this, 0)
