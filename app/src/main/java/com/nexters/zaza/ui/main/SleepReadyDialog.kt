@@ -20,6 +20,8 @@ class SleepReadyDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_sleep_ready, container)
 
+        dialog!!.window.setBackgroundDrawableResource(R.drawable.bg_r21)
+
         view.text_sleep_ready.setOnClickListener {
             dismissAllowingStateLoss()
         }

@@ -69,6 +69,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var startTime = 0L
     var timeBuff = 0L
     var updateTime = 0L
+    var totalSec = 0
     var sec = 0
     var min = 0
     var hour = 0
@@ -203,8 +204,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             override fun run() {
                 msTime = SystemClock.uptimeMillis() - startTime
                 updateTime = timeBuff + msTime
-                sec = (updateTime / 1000 % 60).toInt()
-                min = sec / 60 % 60
+                totalSec = (updateTime / 1000).toInt()
+                sec = totalSec % 60
+                min = totalSec / 60 % 60
                 hour = min / 60
                 text_main_stop_swatch.text = getString(R.string.time_format, hour, min, sec)
                 swHandler.postDelayed(this, 0)
@@ -257,9 +259,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     }
 
     fun uploadFirebase(buttonImage: String, backgroundImage: String) {
-        Log.d("Main", "sec : ${msTime / (1000)}")
-        Log.d("Main", "hour : ${msTime / (1000 * 60 * 60).toDouble()}")
-        val user = Dream(startTime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage, "My Dream 333")
+        val user = Dream(startTime, msTime / (1000 * 60 * 60).toDouble(), backgroundImage, buttonImage)
         val appUuid = sharedPref.getString("UUID", null)
         if (appUuid != null)
             database.child("dream").child(appUuid).child(UUID.randomUUID().toString()).setValue(user)

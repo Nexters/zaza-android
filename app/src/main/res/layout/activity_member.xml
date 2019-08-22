@@ -101,6 +101,7 @@
                 android:fontFamily="@font/gilroy_light" />
 
         <ImageView
+                android:id="@+id/image_member_jk"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -108,6 +109,7 @@
                 android:src="@drawable/boy_2"/>
 
         <TextView
+                android:id="@+id/text_member_jk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -116,6 +118,7 @@
                 android:fontFamily="@font/gilroy_light" />
 
         <TextView
+                android:id="@+id/text_member_nexters"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Copyright 2019.\nteam zaza in NEXTERS.\nAll rights reserved"
@@ -126,5 +129,11 @@
                 android:gravity="center"/>
         
     </LinearLayout>
+
+    <WebView
+            android:id="@+id/webview_member"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
