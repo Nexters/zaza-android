@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -28,6 +29,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notificationManager = NotificationManagerCompat.from(context)
 //        notificationManager.notify(22, builder.build())
+
+        Toast.makeText(context, "Receiver start", Toast.LENGTH_SHORT).show()
 
         val alarmRealm = getAlarm()
 
@@ -75,6 +78,7 @@ class AlarmReceiver : BroadcastReceiver() {
                         context.startService(serviceIntent)
                     }
             }
+
             if (state.equals("alarmOn")) {
                 val timings = longArrayOf(100, 100, 400, 200, 400)
                 val amplitudes = intArrayOf(0, 50, 0, 100, 0, 50, 0, 150)
@@ -87,7 +91,13 @@ class AlarmReceiver : BroadcastReceiver() {
                 vibrator.cancel()
         }
 
-        val intent = Intent(context, MainActivity::class.java)
-        context.startActivity(intent)
+//        val intent = Intent(context, MainActivity::class.java)
+//        context.startActivity(intent)
+
+        val intent = Intent()
+        intent.action = ZazaConstant.BC_ALARM_TIME
+        context.sendBroadcast(intent)
+
+        Toast.makeText(context, "Receiver End", Toast.LENGTH_SHORT).show()
     }
 }

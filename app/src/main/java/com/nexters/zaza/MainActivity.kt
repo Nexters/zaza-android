@@ -12,6 +12,7 @@ import android.hardware.SensorManager
 import android.os.*
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -46,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     val COUNT_INTERVAL: Long = 1000
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-//    lateinit var broadcastReceiver: BroadcastReceiver
+    lateinit var broadcastReceiver: BroadcastReceiver
     lateinit var sharedPref: SharedPreferences
     lateinit var sampleViewModel: SampleViewModel
     lateinit var sensorManager: SensorManager
@@ -87,14 +88,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             Log.d("MAIN", appUuid)
         }
 
-//        if (broadcastReceiver == null) {
-//            broadcastReceiver = object : BroadcastReceiver() {
-//                override fun onReceive(context: Context?, intent: Intent?) {
-//                    //
-//                }
-//
-//            }
-//        }
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent != null) {
+                    Toast.makeText(context, "Intent not null", Toast.LENGTH_SHORT).show()
+                    if (intent.action == ZazaConstant.BC_ALARM_TIME) {
+                        Toast.makeText(context, "Intent action : BC_ALARM_TIME", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+        }
 
         image_main_dream.setOnClickListener(this)
         text_main_dream.setOnClickListener(this)

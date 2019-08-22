@@ -41,12 +41,12 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
      * ex) rxjava observe, databinding observe..
      */
     fun initDataBinding() {
-        alarmVM.mutableAlarmData.observe(this, Observer{ alarm ->
+        alarmVM.mutableAlarmData.observe(this, Observer { alarm ->
 
             Log.e(TAG, "getAlarm")
-            for(i in alarm.weeks.indices){
-                Log.e(TAG,alarm.weeks[i].toString())
-                when(i){
+            for (i in alarm.weeks.indices) {
+                Log.e(TAG, alarm.weeks[i].toString())
+                when (i) {
                     0 -> viewDataBinding.checkWeekMon.isChecked = alarm.weeks[i]
                     1 -> viewDataBinding.checkWeekTue.isChecked = alarm.weeks[i]
                     2 -> viewDataBinding.checkWeekWed.isChecked = alarm.weeks[i]
@@ -59,17 +59,17 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
             val calendar = Calendar.getInstance()
             calendar.set(Calendar.HOUR_OF_DAY, alarm.sleepH)
             calendar.set(Calendar.MINUTE, alarm.sleepM)
-            calendar.add(Calendar.MINUTE,30)
+            calendar.add(Calendar.MINUTE, 30)
             viewDataBinding.tvSleepHour.text = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY))
             viewDataBinding.tvSleepMinute.text = String.format("%02d", calendar.get(Calendar.MINUTE))
-            viewDataBinding.tvWakeHour.text = String.format("%02d",alarm.wakeUpH)
-            viewDataBinding.tvWakeMinute.text = String.format("%02d",alarm.wakeUpM)
+            viewDataBinding.tvWakeHour.text = String.format("%02d", alarm.wakeUpH)
+            viewDataBinding.tvWakeMinute.text = String.format("%02d", alarm.wakeUpM)
             viewDataBinding.checkFive.isChecked = alarm.isAfterFive
             viewDataBinding.chckVibrate.isChecked = alarm.isVibrate
 
             var wh = alarm.wakeUpH
-            if((alarm.sleepH > alarm.wakeUpH) ||( (alarm.sleepH == alarm.wakeUpM) && (alarm.sleepM >= alarm.wakeUpM)))
-                wh +=24
+            if ((alarm.sleepH > alarm.wakeUpH) || ((alarm.sleepH == alarm.wakeUpM) && (alarm.sleepM >= alarm.wakeUpM)))
+                wh += 24
 
             wh = Math.abs(alarm.sleepH - wh)
 
@@ -79,13 +79,12 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
 
             viewDataBinding.etAlarm.setText(text)
 
-         }
-        )
+        })
 
     }
 
-    fun setOnOff(isEditable : Boolean){
-        if (isEditable){
+    fun setOnOff(isEditable: Boolean) {
+        if (isEditable) {
             viewDataBinding.viewBtns.visibility = View.VISIBLE
 
             viewDataBinding.checkWeekFri.isClickable = true
@@ -99,7 +98,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
 
             viewDataBinding.viewTimeSleep.isClickable = true
             viewDataBinding.viewTimeWake.isClickable = true
-        } else{
+        } else {
             viewDataBinding.viewBtns.visibility = View.GONE
             viewDataBinding.viewAlarmBg.setBackgroundColor(Color.WHITE)
             viewDataBinding.checkWeekFri.isClickable = false
@@ -126,8 +125,8 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
         val alarmDialog = AlarmBottomSheetDialog()
         alarmDialog.setActivityBinding(viewDataBinding)
 
-        viewDataBinding.viewTimeSleep.setOnClickListener{
-                alarmDialog.show(supportFragmentManager, "sleep")
+        viewDataBinding.viewTimeSleep.setOnClickListener {
+            alarmDialog.show(supportFragmentManager, "sleep")
             viewDataBinding.viewTimeSleep.background = getDrawable(R.drawable.bg_round_purple)
             viewDataBinding.ivMoonAlarm.setImageDrawable(getDrawable(R.drawable.moon_white))
             viewDataBinding.tvSleepMinute.setTextColor(getColor(R.color.white))
@@ -140,8 +139,8 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
             viewDataBinding.tvWakeHour.setTextColor(getColor(R.color.purple))
             viewDataBinding.tvWakeColon.setTextColor(getColor(R.color.purple))
         }
-        viewDataBinding.viewTimeWake.setOnClickListener{
-                alarmDialog.show(supportFragmentManager, "wake")
+        viewDataBinding.viewTimeWake.setOnClickListener {
+            alarmDialog.show(supportFragmentManager, "wake")
 
             viewDataBinding.viewTimeSleep.background = getDrawable(R.drawable.bg_stroke_purple)
             viewDataBinding.ivMoonAlarm.setImageDrawable(getDrawable(R.drawable.moon_blue))
@@ -157,11 +156,11 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
         }
 
 
-        viewDataBinding.btnCancelAlarm.setOnClickListener{
+        viewDataBinding.btnCancelAlarm.setOnClickListener {
             finish()
         }
 
-        viewDataBinding.btnQuit.setOnClickListener{
+        viewDataBinding.btnQuit.setOnClickListener {
             val weeks = ArrayList<Boolean>()
 
             weeks.add(viewDataBinding.checkWeekMon.isChecked)
@@ -177,9 +176,15 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
             calendar.set(Calendar.MINUTE, viewDataBinding.tvSleepMinute.text.toString().toInt())
             calendar.add(Calendar.MINUTE, -30)
 
-            val alarmVO = AlarmVO(weeks,viewDataBinding.chckVibrate.isChecked, viewDataBinding.checkFive.isChecked,
-                viewDataBinding.tvWakeHour.text.toString().toInt(), viewDataBinding.tvWakeMinute.text.toString().toInt(),
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE) )
+            val alarmVO = AlarmVO(
+                weeks,
+                viewDataBinding.chckVibrate.isChecked,
+                viewDataBinding.checkFive.isChecked,
+                viewDataBinding.tvWakeHour.text.toString().toInt(),
+                viewDataBinding.tvWakeMinute.text.toString().toInt(),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE)
+            )
             alarmVM.updateAlarm(alarmVO)
             alarmUtil.registAlarm(this, alarmVO)
 
@@ -197,19 +202,19 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
         viewDataBinding.checkWeekWed.setOnCheckedChangeListener(this)
 
 
-
     }
+
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        if(isChecked){
+        if (isChecked) {
             buttonView?.setTextColor(resources.getColor(R.color.purple, null))
-        } else{
+        } else {
             buttonView?.setTextColor(resources.getColor(R.color.gray_light, null))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(getAlarm()?.size == 0) {
+        if (getAlarm()?.size == 0) {
             Log.e(TAG, "alarm null")
             insertAlarm()
         }
