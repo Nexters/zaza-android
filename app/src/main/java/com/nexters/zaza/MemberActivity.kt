@@ -18,6 +18,16 @@ class MemberActivity : AppCompatActivity(), View.OnClickListener {
 
         image_member_jk.setOnClickListener(this)
         text_member_jk.setOnClickListener(this)
+        image_member_dk.setOnClickListener(this)
+        text_member_dk.setOnClickListener(this)
+        image_member_pjh.setOnClickListener(this)
+        text_member_pjh.setOnClickListener(this)
+        image_member_yj.setOnClickListener(this)
+        text_member_yj.setOnClickListener(this)
+        image_member_ws.setOnClickListener(this)
+        text_member_ws.setOnClickListener(this)
+        image_member_jh.setOnClickListener(this)
+        text_member_jh.setOnClickListener(this)
 
         webview_member.settings.javaScriptEnabled = true
         webview_member.webChromeClient = WebChromeClient()
@@ -33,9 +43,29 @@ class MemberActivity : AppCompatActivity(), View.OnClickListener {
         when (v) {
             image_member_jk, text_member_jk -> {
                 webview_member.loadUrl("https://www.instagram.com/bingocake/")
-                webview_member.visibility = View.VISIBLE
+            }
+
+            image_member_yj, text_member_yj -> {
+                webview_member.loadUrl("https://www.youtube.com/channel/UCuOEtV1iR-t0aGqqcOyOxpA")
+            }
+
+            image_member_jh, text_member_jh -> {
+                webview_member.loadUrl("https://www.facebook.com/rick931022")
+            }
+
+            image_member_dk, text_member_dk -> {
+                webview_member.loadUrl("https://www.facebook.com/thequrian")
+            }
+
+            image_member_pjh, text_member_pjh -> {
+                webview_member.loadUrl("https://www.instagram.com/jike_momo/")
+            }
+
+            image_member_ws, text_member_ws -> {
+                webview_member.loadUrl("https://www.instagram.com/cafe_1480/")
             }
         }
+        webview_member.visibility = View.VISIBLE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
