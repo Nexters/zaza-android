@@ -43,6 +43,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val intent = Intent(context, MainActivity::class.java)
         val sharedUtil = SharedUtil(context!!)
 
+
         if (isSleep.equals("sleep")) {
             alarmRealm?.forEach { a ->
                 val weeks = ArrayList<Boolean>()
@@ -60,72 +61,70 @@ class AlarmReceiver : BroadcastReceiver() {
                 )
                 alarmUtil.registAlarm(context, alarmVO)
             }
-            if (isSleep.equals("sleep")) {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.MINUTE, 30)
-                alarmUtil.afterThirtyAlarm(context, calendar)
-                val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-                if (powerManager.isInteractive)
-                    context.startActivity(intent)
-                else
-                    NotificationManager.sendNotification(
-                        context,
-                        3,
-                        NotificationManager.Channel.NOTICE,
-                        "취침시간 30분 전입니다!",
-                        sharedUtil.getStringPreference(SharedUtil.ALARM_TEXT, SharedUtil.DEFAULT_VALUE)
-                    )
-            } else {
-                val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.MINUTE, 30)
+            alarmUtil.afterThirtyAlarm(context, calendar)
+            intent.putExtra("SLEEP_READY", "SLEEP_READY")
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            if (powerManager.isInteractive)
+                context.startActivity(intent)
+            else
+                NotificationManager.sendNotification(
+                    context,
+                    3,
+                    NotificationManager.Channel.NOTICE,
+                    "취침시간 30분 전입니다!",
+                    sharedUtil.getStringPreference(SharedUtil.ALARM_TEXT, SharedUtil.DEFAULT_VALUE)
+                )
+        } else {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
 
-                if (powerManager.isInteractive)
-                    context.startActivity(intent)
-                else
-                    NotificationManager.sendNotification(
-                        context,
-                        3,
-                        NotificationManager.Channel.NOTICE,
-                        "취침시간입니다!",
-                        "잠에 들 준비를 해주세요!"
-                    )
-            }
+            if (powerManager.isInteractive)
+                context.startActivity(intent)
+            else
+                NotificationManager.sendNotification(
+                    context,
+                    3,
+                    NotificationManager.Channel.NOTICE,
+                    "취침시간입니다!",
+                    "잠에 들 준비를 해주세요!"
+                )
+        }
 
-            val serviceIntent = Intent(context, RingtoneService::class.java)
-            serviceIntent.putExtra("state", state)
+        val serviceIntent = Intent(context, RingtoneService::class.java)
+        serviceIntent.putExtra("state", state)
 
-            if (isWake.equals("wake")) {
-                val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                val wakeIntent = Intent("wake")
-                context!!.sendBroadcast(wakeIntent)
-
-                when (audioManager.ringerMode) {
-                    AudioManager.RINGER_MODE_NORMAL ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            context.startForegroundService(serviceIntent)
-                        } else {
-                            context.startService(serviceIntent)
-                        }
-                }
-                if (state.equals("alarmOn")) {
-                    val timings = longArrayOf(100, 100, 400, 200, 400)
-                    val amplitudes = intArrayOf(0, 50, 0, 100, 0, 50, 0, 150)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, 0))
-                    } else {
-                        vibrator.vibrate(timings, 0)
-                    }
-                } else
-                    vibrator.cancel()
-            }
-//        val intent = Intent(context, MainActivity::class.java)
-//        context.startActivity(intent)
-
+        if (isWake.equals("wake")) {
+            Toast.makeText(context, "AlarmStart", Toast.LENGTH_SHORT).show()
+            val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             val intent = Intent()
             intent.action = ZazaConstant.BC_ALARM_TIME
             context.sendBroadcast(intent)
 
-            Toast.makeText(context, "Receiver End", Toast.LENGTH_SHORT).show()
+            when (audioManager.ringerMode) {
+                AudioManager.RINGER_MODE_NORMAL ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        context.startForegroundService(serviceIntent)
+                    } else {
+                        context.startService(serviceIntent)
+                    }
+            }
+            if (state.equals("alarmOn")) {
+                Toast.makeText(context, "AlarmStart", Toast.LENGTH_SHORT).show()
+                val timings = longArrayOf(100, 100, 400, 200, 400)
+                val amplitudes = intArrayOf(0, 50, 0, 100, 0, 50, 0, 150)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, 0))
+                } else {
+                    vibrator.vibrate(timings, 0)
+                }
+            } else
+                vibrator.cancel()
         }
+//        val intent = Intent(context, MainActivity::class.java)
+//        context.startActivity(intent)
+
     }
+
 }
