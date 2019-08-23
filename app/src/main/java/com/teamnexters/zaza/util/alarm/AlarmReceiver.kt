@@ -88,7 +88,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (isWake.equals("wake")) {
             val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            val wakeIntent = Intent("wake").putExtra("wake", "wake")
+            val wakeIntent = Intent("wake")
             context!!.sendBroadcast(wakeIntent)
             when (audioManager.ringerMode) {
                 AudioManager.RINGER_MODE_NORMAL ->

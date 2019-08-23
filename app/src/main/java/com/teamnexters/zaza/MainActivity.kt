@@ -1,6 +1,7 @@
 package com.teamnexters.zaza
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -71,6 +72,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var min = 0
     var hour = 0
     var swHandler = Handler()
+
+    var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            // internet lost alert dialog method call from here...
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
