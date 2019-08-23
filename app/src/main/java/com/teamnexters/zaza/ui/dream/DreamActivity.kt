@@ -37,11 +37,13 @@ class DreamActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var appUuid = ""
     private val mcontext = this
+    private var dreamAdapter:DreamItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+        iv_dream_bottom_background.bringToFront()
 
         database = FirebaseDatabase.getInstance().reference
         sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
@@ -112,20 +114,20 @@ class DreamActivity : AppCompatActivity() {
 
     private fun loadDreams(appUuid: String) {
         val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
-
         // 전체 데이터를 가져옴
+
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
             }
-
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
                 if(!dataSnapshot.hasChildren()){
                     tv_dream_empty.visibility = TextView.VISIBLE
                 }else{
                     tv_dream_empty.visibility = TextView.GONE
 
-                    for (dsp in dataSnapshot.getChildren()) {
+                    for (dsp in dataSnapshot.children) {
                         var dId:String?
                         var bgImg:String?
                         var btImg:String?
@@ -142,7 +144,7 @@ class DreamActivity : AppCompatActivity() {
                                 dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                             }
                         }
-                        val dreamAdapter = DreamItemAdapter(mcontext, dreamList)
+                        dreamAdapter = DreamItemAdapter(mcontext, dreamList)
                         rv_dreams.adapter = dreamAdapter
                     }
                 }

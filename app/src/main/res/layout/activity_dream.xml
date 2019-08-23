@@ -7,24 +7,33 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         tools:context=".ui.dream.DreamActivity"
-        android:background="@drawable/bg_white">
+        android:background="@drawable/bg_white"
+        android:id="@+id/layout_dream_activity">
 
+
+    <ImageView
+            android:id="@+id/iv_dream_bottom_background"
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/bg_gradient_white"
+            app:layout_constraintBottom_toBottomOf="@id/rv_dreams"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:srcCompat="@drawable/dream_bottom_whitegradation" />
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_dreams"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_dream"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            android:id="@+id/rv_dreams"
             android:layout_marginTop="111dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="3"
+            tools:listitem="@layout/item_dream" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -63,13 +72,6 @@
             android:textSize="25sp"
             android:textColor="#696d74"
             android:padding="10dp"/>
-
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="206dp"
-            tools:srcCompat="@drawable/dream_bottom_whitegradation"
-            tools:layout_editor_absoluteX="125dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
             android:text="충분한 수면으로\n선명한 꿈들을\n모아보세요!"

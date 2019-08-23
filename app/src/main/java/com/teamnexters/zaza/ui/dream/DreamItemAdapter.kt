@@ -19,7 +19,9 @@ import androidx.core.view.ViewCompat.animate
 import android.R.attr.scaleX
 import android.R.attr.scaleY
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.view.ViewCompat.setScaleY
 import androidx.core.view.ViewCompat.setScaleX
@@ -56,7 +58,6 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
         holder?.civ.tag = object : Target {
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                 Log.d("image", "Prepare Load")
-                holder.civ.setImageResource(R.mipmap.ic_launcher)
             }
 
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
@@ -68,6 +69,7 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                 Log.d("image", "Imaged Loaded")
                 holder.civ.setImageDrawable(BitmapDrawable(context.resources, bitmap))
+                holder.civ.borderWidth = 0.0f
             }
         }
 

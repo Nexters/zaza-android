@@ -36,6 +36,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_detail)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+//        iv_dream_detail_bottom_background.bringToFront()
         layout_dream_detail.visibility = View.INVISIBLE
         layout_dream_detail.tag = object : Target {
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
