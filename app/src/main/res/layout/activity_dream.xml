@@ -71,4 +71,18 @@
             tools:layout_editor_absoluteX="125dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+            android:text="충분한 수면으로\n선명한 꿈들을\n모아보세요!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_dream_empty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="211dp"
+            android:textColor="#c8ccd7"
+            android:textSize="35sp"
+            android:fontFamily="@font/apple_sd_gothic_neo_semi_bold"
+            android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
