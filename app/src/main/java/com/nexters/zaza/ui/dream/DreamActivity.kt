@@ -86,7 +86,7 @@ class DreamActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        val sortByDate = database.child("dream").child(appUuid).orderByKey()
+        val sortByDate = database.child("dream").orderByKey().equalTo(appUuid)
         var childrenCount = 0
 
         sortByDate.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -119,7 +119,7 @@ class DreamActivity : AppCompatActivity() {
     }
 
     private fun loadDreams(appUuid: String) {
-        val sortByDatetime = database.child("dream").child(appUuid).orderByKey()
+        val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
         // 전체 데이터를 가져옴
 
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -147,7 +147,7 @@ class DreamActivity : AppCompatActivity() {
                             btImg = it.child("button_image").value.toString()
                             dateTime = it.child("datetime").value as Long
                             during = it.child("during").value as Double
-                           
+
                             if (dId != null) {
                                 dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                             }
