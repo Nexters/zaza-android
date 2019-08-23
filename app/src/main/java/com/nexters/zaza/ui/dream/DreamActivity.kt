@@ -33,7 +33,6 @@ class DreamActivity : AppCompatActivity() {
         sharedPref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
         appUuid = sharedPref.getString("UUID", null)
         Log.d("id", appUuid)
-//        appUuid = "f66bbf56-97d4-4bdb-a855-fac46d442795"
 
         dreamList = arrayListOf<DreamItem>()
         loadDreams(appUuid)
@@ -120,7 +119,7 @@ class DreamActivity : AppCompatActivity() {
     }
 
     private fun loadDreams(appUuid: String) {
-        val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
+        val sortByDatetime = database.child("dream").child(appUuid).orderByKey()
         // 전체 데이터를 가져옴
 
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -148,6 +147,7 @@ class DreamActivity : AppCompatActivity() {
                             btImg = it.child("button_image").value.toString()
                             dateTime = it.child("datetime").value as Long
                             during = it.child("during").value as Double
+                           
                             if (dId != null) {
                                 dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                             }
