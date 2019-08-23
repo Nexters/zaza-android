@@ -80,14 +80,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         tv_sleepTime.text = sleepTime
         tv_wakeTime.text = wakeTime
         tv_duringTime.text = sdf1.format(duringTime)
-//        tv_duringTime.text = sdf.format(during*360000)
 
-
-//        if (backgroundImg != "") {
-//            val resourceId = this.resources.getIdentifier(backgroundImg, "drawable", this.packageName)
-//            layout_dream_detail.setBackgroundResource(resourceId)
-//        }
-//        Picasso.get().load(backgroundImg).into(imageLoadTarget)
     }
 
     override fun onResume() {
@@ -103,7 +96,6 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
-                ACTIVE = false
                 return true
             }
             R.id.action_delete -> {
@@ -121,7 +113,6 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         val resultIntent = Intent()
         resultIntent.putExtra("itemPos", itemPos)
         setResult(Activity.RESULT_OK, resultIntent)
-        ACTIVE = false
         finish()
     }
 
@@ -135,7 +126,12 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onStop() {
-        super.onStop()
         ACTIVE = false
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        ACTIVE = false
+        super.onDestroy()
     }
 }

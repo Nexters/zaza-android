@@ -44,7 +44,6 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
 
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
                 Log.d("image", "Failed")
-                //                civ?.setImageResource(R.mipmap.ic_launcher)
                 holder.civ.setImageResource(R.mipmap.ic_launcher)
             }
 

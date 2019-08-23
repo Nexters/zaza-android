@@ -28,11 +28,6 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     val sdf = SimpleDateFormat("MMMM.d", Locale.ENGLISH)
 
     fun bind(dreamitem: DreamItem, context: Context) {
-        //        if(dreamitem.button_img != ""){
-        //            val resourceId = context.resources.getIdentifier(dreamitem.button_img, "drawable", context.packageName)
-        //            civ?.setImageResource(resourceId)
-        //        }else{
-        //        }
 
         Picasso.get().load(dreamitem.button_img).resize(92,92).into(object : Target {
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {

@@ -137,12 +137,11 @@ class DreamActivity : AppCompatActivity() {
 
     private fun deleteDream(appUuid: String, dreamId: String) {
         database.child("dream").child(appUuid).child(dreamId).removeValue()
-//        Log.d("")
     }
 
     private fun loadDreams(appUuid: String) {
         val sortByDatetime = database.child("dream").child(appUuid).orderByChild("datetime")
-        // 전체 데이터를 가져옴
+        // 전체 데이터를 가져옴 날짜 순으로 정렬
 
 
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
