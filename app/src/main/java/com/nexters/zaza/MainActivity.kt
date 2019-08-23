@@ -241,7 +241,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     fun setStopWatch() {
         runnable = object : Runnable {
             override fun run() {
-                msTime = SystemClock.uptimeMillis() - startTime
+                msTime = System.currentTimeMillis() - startTime
                 updateTime = timeBuff + msTime
                 totalSec = (updateTime / 1000).toInt()
                 sec = totalSec % 60
@@ -254,7 +254,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     }
 
     fun startStopWatch() {
-        startTime = SystemClock.uptimeMillis()
+        startTime = System.currentTimeMillis()
         swHandler.postDelayed(runnable, 0)
     }
 
