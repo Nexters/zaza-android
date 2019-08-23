@@ -64,6 +64,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.MINUTE, 30)
                 alarmUtil.afterThirtyAlarm(context, calendar)
+                intent.putExtra("SLEEP_READY","SLEEP_READY")
                 val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
                 if (powerManager.isInteractive)
                     context.startActivity(intent)
@@ -94,10 +95,12 @@ class AlarmReceiver : BroadcastReceiver() {
             serviceIntent.putExtra("state", state)
 
             if (isWake.equals("wake")) {
+                Toast.makeText(context, "AlarmStart", Toast.LENGTH_SHORT).show()
                 val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
                 val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                val wakeIntent = Intent("wake")
-                context!!.sendBroadcast(wakeIntent)
+                val intent = Intent()
+                intent.action = ZazaConstant.BC_ALARM_TIME
+                context.sendBroadcast(intent)
 
                 when (audioManager.ringerMode) {
                     AudioManager.RINGER_MODE_NORMAL ->
@@ -108,6 +111,7 @@ class AlarmReceiver : BroadcastReceiver() {
                         }
                 }
                 if (state.equals("alarmOn")) {
+                    Toast.makeText(context, "AlarmStart", Toast.LENGTH_SHORT).show()
                     val timings = longArrayOf(100, 100, 400, 200, 400)
                     val amplitudes = intArrayOf(0, 50, 0, 100, 0, 50, 0, 150)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -121,11 +125,6 @@ class AlarmReceiver : BroadcastReceiver() {
 //        val intent = Intent(context, MainActivity::class.java)
 //        context.startActivity(intent)
 
-            val intent = Intent()
-            intent.action = ZazaConstant.BC_ALARM_TIME
-            context.sendBroadcast(intent)
-
-            Toast.makeText(context, "Receiver End", Toast.LENGTH_SHORT).show()
         }
     }
 }

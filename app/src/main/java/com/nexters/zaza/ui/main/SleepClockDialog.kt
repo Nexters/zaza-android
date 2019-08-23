@@ -26,10 +26,15 @@ class SleepClockDialog : DialogFragment() {
         dialog!!.window.setBackgroundDrawableResource(R.drawable.bg_r21)
 
         view.text_sleep_clock_subtext.text = subtext
-        view.text_sleep_clock_button.setOnClickListener {
-            dismissAllowingStateLoss()
-        }
+        //view.text_sleep_clock_button.setOnClickListener {
+            //}
 
         return view
+    }
+
+    fun setOnClickListener(onClickListener: View.OnClickListener){
+        view?.text_sleep_clock_button?.setOnClickListener(onClickListener)
+        dismissAllowingStateLoss()
+
     }
 }

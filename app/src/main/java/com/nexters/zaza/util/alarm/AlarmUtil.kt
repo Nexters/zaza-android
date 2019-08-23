@@ -39,7 +39,7 @@ class AlarmUtil {
             if (alarmRealm.weeks[i]) {
                 val calendar = Calendar.getInstance()
                 if (calendar.get(Calendar.DAY_OF_WEEK) == code && (calendar.get(Calendar.HOUR_OF_DAY) > alarmRealm.sleepH) ||
-                    (( calendar.get(Calendar.HOUR_OF_DAY) == alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM))) {
+                    (calendar.get(Calendar.DAY_OF_WEEK) == code && ( calendar.get(Calendar.HOUR_OF_DAY) == alarmRealm.sleepH) && (calendar.get(Calendar.MINUTE)>= alarmRealm.sleepM))) {
                     calendar.add(Calendar.DATE, 7)
                 } else {
                     if (calendar.get(Calendar.DAY_OF_WEEK) <= code) {
