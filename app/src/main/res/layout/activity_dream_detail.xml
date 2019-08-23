@@ -31,14 +31,25 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
+            android:id="@+id/iv_dream_detail_bottom_background"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/bg_gradient_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:srcCompat="@drawable/dream_bottom_whitegradation" />
+
+    <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            app:srcCompat="@drawable/moon_gray"
-            app:layout_constraintBottom_toTopOf="@+id/tv_sleepTime"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="65dp"
             android:layout_marginBottom="10dp"
-            android:id="@+id/imageView5"/>
+            app:layout_constraintBottom_toTopOf="@+id/tv_sleepTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/moon_gray" />
 
     <TextView
             tools:text="01:30"
@@ -107,14 +118,6 @@
             android:textAlignment="center"
             android:textColor="#778ad5"
             android:fontFamily="@font/gilroy_bold"/>
-
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            tools:srcCompat="@drawable/dream_bottom_whitegradation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

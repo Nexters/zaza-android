@@ -1,14 +1,12 @@
 package com.nexters.zaza
 
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.AudioManager
 import android.os.*
 import android.util.Log
 import android.view.View
@@ -27,7 +25,9 @@ import com.nexters.zaza.sample.firebase.retrofit.ZazaService
 import com.nexters.zaza.ui.alarm.AlarmActivity
 import com.nexters.zaza.ui.dream.DreamActivity
 import com.nexters.zaza.ui.main.CancelSleepDialog
+import com.nexters.zaza.ui.main.SleepClockDialog
 import com.nexters.zaza.ui.main.SleepReadyDialog
+import com.nexters.zaza.util.alarm.RingtoneService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,6 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var isCountDown = false
     var handler = Handler()
     var sleepReadyDialog = SleepReadyDialog.getInstance()
+    lateinit var sleepClockDialog : SleepClockDialog
     var countTime = 10
 
     // Stop watch var
@@ -89,16 +90,55 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             Log.d("MAIN", appUuid)
         }
 
+        val getSleepExtra = intent.getStringExtra("SLEEP_READY")
+
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val timings = longArrayOf(100, 100, 400, 200, 400)
+        val amplitudes = intArrayOf(0, 50, 100, 50, 150)
+
+        sleepClockDialog = SleepClockDialog.getInstance(" ")
+        sleepClockDialog.setOnClickListener(View.OnClickListener {
+            /*val stopIntent = Intent()
+            stopIntent.putExtra("wake","wake")
+            stopIntent.putExtra("state","alarmOff")
+            sendBroadcast(stopIntent)*/
+            vibrator.cancel()
+            val serviceRIntent = Intent(this@MainActivity, RingtoneService::class.java)
+            stopService(serviceRIntent)
+            sleepClockDialog.dismissAllowingStateLoss()
+        })
+        if(getSleepExtra != null) {
+            sleepClockDialog.show(supportFragmentManager, "SleepClock")
+        }
+
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent != null) {
                     Toast.makeText(context, "Intent not null", Toast.LENGTH_SHORT).show()
                     if (intent.action == ZazaConstant.BC_ALARM_TIME) {
+                        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                        val serviceRIntent = Intent(this@MainActivity, RingtoneService::class.java)
+                        when (audioManager.ringerMode) {
+                            AudioManager.RINGER_MODE_NORMAL ->
+                                startService(serviceRIntent)
+
+                        }
                         Toast.makeText(context, "Intent action : BC_ALARM_TIME", Toast.LENGTH_SHORT).show()
+                        sleepClockDialog.show(supportFragmentManager, "WakeClock")
+
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, 0))
+                        } else {
+                            vibrator.vibrate(timings, 0)
+                        }
+
                     }
                 }
             }
         }
+
+        registerReceiver(broadcastReceiver, IntentFilter(ZazaConstant.BC_ALARM_TIME))
 
         image_main_dream.setOnClickListener(this)
         text_main_dream.setOnClickListener(this)
@@ -335,5 +375,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
                 startActivity(sampleIntent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
     }
 }
