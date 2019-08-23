@@ -37,7 +37,7 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //        }else{
         //        }
 
-        Picasso.get().load(dreamitem.button_img).resize(92,92).placeholder(R.drawable.loading).into(object : Target {
+        Picasso.get().load(dreamitem.button_img).resize(92,92).into(object : Target {
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                 Log.d("image", "Prepare Load")
             }

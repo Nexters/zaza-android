@@ -80,7 +80,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
 //            val resourceId = this.resources.getIdentifier(backgroundImg, "drawable", this.packageName)
 //            layout_dream_detail.setBackgroundResource(resourceId)
 //        }
-        Picasso.get().load(backgroundImg).placeholder(R.drawable.loading).into(imageLoadTarget)
+        Picasso.get().load(backgroundImg).into(imageLoadTarget)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
