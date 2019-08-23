@@ -27,6 +27,7 @@ import com.nexters.zaza.sample.firebase.retrofit.ZazaService
 import com.nexters.zaza.ui.alarm.AlarmActivity
 import com.nexters.zaza.ui.dream.DreamActivity
 import com.nexters.zaza.ui.main.CancelSleepDialog
+import com.nexters.zaza.ui.main.SleepClockDialog
 import com.nexters.zaza.ui.main.SleepReadyDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -62,6 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     var isCountDown = false
     var handler = Handler()
     var sleepReadyDialog = SleepReadyDialog.getInstance()
+    var sleepClockDialog = SleepClockDialog.getInstance("")
     var countTime = 10
 
     // Stop watch var
@@ -89,12 +91,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             Log.d("MAIN", appUuid)
         }
 
+        val getSleepExtra = intent.getStringExtra("SLEEP_READY")
+
+        if(getSleepExtra != null){
+            sleepClockDialog.show(supportFragmentManager,"SleepClock")
+        }
+
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent != null) {
                     Toast.makeText(context, "Intent not null", Toast.LENGTH_SHORT).show()
                     if (intent.action == ZazaConstant.BC_ALARM_TIME) {
                         Toast.makeText(context, "Intent action : BC_ALARM_TIME", Toast.LENGTH_SHORT).show()
+                        sleepClockDialog.show(supportFragmentManager, "WakeClock")
+                        sleepClockDialog.setOnClickListener(View.OnClickListener { v->
+                            val stopIntent = Intent()
+                            stopIntent.putExtra("wake","wake")
+                            stopIntent.putExtra("state","alarmOff")
+                            sendBroadcast(stopIntent)
+                        })
                     }
                 }
             }
