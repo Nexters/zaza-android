@@ -26,6 +26,7 @@
                 android:fontFamily="@font/gilroy_bold" />
 
         <ImageView
+                android:id="@+id/image_member_dk"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -33,10 +34,11 @@
                 android:src="@drawable/man_7"/>
 
         <TextView
+                android:id="@+id/text_member_dk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="런칭해서 넘나 기뻫. 김대경"
+                android:text="완성해서 행복햏. 김대경"
                 android:textSize="15sp"
                 android:fontFamily="@font/gilroy_light" />
 
@@ -56,6 +58,7 @@
                 android:fontFamily="@font/gilroy_light" />
 
         <ImageView
+                android:id="@+id/image_member_yj"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -63,6 +66,7 @@
                 android:src="@drawable/woman_6"/>
 
         <TextView
+                android:id="@+id/text_member_yj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -86,6 +90,7 @@
                 android:fontFamily="@font/gilroy_light" />
 
         <ImageView
+                android:id="@+id/image_member_jh"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -93,6 +98,7 @@
                 android:src="@drawable/boy_5"/>
 
         <TextView
+                android:id="@+id/text_member_jh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
