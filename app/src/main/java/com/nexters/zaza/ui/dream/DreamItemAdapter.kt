@@ -40,7 +40,6 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
         holder?.civ.tag = object : Target {
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
                 Log.d("image", "Prepare Load")
-                holder.civ.setImageResource(R.mipmap.ic_launcher)
             }
 
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
@@ -51,6 +50,7 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                 Log.d("image", "Imaged Loaded")
+                holder.civ.borderWidth = 0.0f
                 holder.civ.setImageDrawable(BitmapDrawable(context.resources, bitmap))
             }
         }
