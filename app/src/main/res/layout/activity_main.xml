@@ -73,6 +73,13 @@
                 tools:text="01:23:45"
                 tools:visibility="visible"/>
 
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/picker_gradation_up"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
                 android:id="@+id/text_main_sleep_guide"
                 android:layout_width="wrap_content"

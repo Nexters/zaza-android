@@ -18,6 +18,16 @@ class MemberActivity : AppCompatActivity(), View.OnClickListener {
 
         image_member_jk.setOnClickListener(this)
         text_member_jk.setOnClickListener(this)
+        image_member_dk.setOnClickListener(this)
+        text_member_dk.setOnClickListener(this)
+        image_member_pjh.setOnClickListener(this)
+        text_member_pjh.setOnClickListener(this)
+        image_member_yj.setOnClickListener(this)
+        text_member_yj.setOnClickListener(this)
+        image_member_ws.setOnClickListener(this)
+        text_member_ws.setOnClickListener(this)
+        image_member_jh.setOnClickListener(this)
+        text_member_jh.setOnClickListener(this)
 
         webview_member.settings.javaScriptEnabled = true
         webview_member.webChromeClient = WebChromeClient()
@@ -45,6 +55,14 @@ class MemberActivity : AppCompatActivity(), View.OnClickListener {
 
             image_member_dk, text_member_dk -> {
                 webview_member.loadUrl("https://www.facebook.com/thequrian")
+            }
+
+            image_member_pjh, text_member_pjh -> {
+                webview_member.loadUrl("https://www.instagram.com/jike_momo/")
+            }
+
+            image_member_ws, text_member_ws -> {
+                webview_member.loadUrl("https://www.instagram.com/cafe_1480/")
             }
         }
         webview_member.visibility = View.VISIBLE
