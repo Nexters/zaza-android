@@ -37,10 +37,13 @@ class AlarmBottomSheetDialog : BottomSheetDialogFragment(), View.OnClickListener
 
     fun subscribeUi() {
 
-        binding.tpAlamr.setIs24HourView(true)
-        binding.tpAlamr.setOnTimeChangedListener(TimePicker.OnTimeChangedListener { timePicker: TimePicker, h: Int, m: Int ->
-
-        })
+        if(tag.equals("sleep")){
+            binding.timepickerCustom.setHour(activityBinding.tvSleepHour.text.toString().toInt())
+            binding.timepickerCustom.setMinute(activityBinding.tvSleepMinute.text.toString().toInt())
+        } else{
+            binding.timepickerCustom.setHour(activityBinding.tvWakeHour.text.toString().toInt())
+            binding.timepickerCustom.setMinute(activityBinding.tvWakeMinute.text.toString().toInt())
+        }
 
         binding.btnDialogAlarmCancel.setOnClickListener {
             dismiss()

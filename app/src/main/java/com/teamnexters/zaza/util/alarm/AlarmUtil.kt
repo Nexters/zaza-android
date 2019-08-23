@@ -93,6 +93,7 @@ class AlarmUtil {
     fun afterThirtyAlarm(context: Context, calendar: Calendar){
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra("sleep","before")
         val pendingIntent = getPendingIntent(intent, 202,context)
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
