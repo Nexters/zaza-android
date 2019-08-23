@@ -48,7 +48,7 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
                 civ.setImageDrawable(BitmapDrawable(context.resources, bitmap))
             }
         })
-        Log.d("time : ", "${System.currentTimeMillis()}")
+
         date?.text = sdf.format(dreamitem.date)
     }
 

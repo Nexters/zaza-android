@@ -86,10 +86,10 @@ class DreamActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        val sortByDate = database.child("dream").orderByKey().equalTo(appUuid)
+        val sortByDatetime = database.child("dream").child(appUuid).orderByChild("datetime")
         var childrenCount = 0
 
-        sortByDate.addListenerForSingleValueEvent(object : ValueEventListener {
+        sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -99,7 +99,29 @@ class DreamActivity : AppCompatActivity() {
 
                 if (childrenCount != dreamList.size) {
                     dreamList.clear()
-                    loadDreams(appUuid)
+
+                    var dId: String?
+                    var bgImg: String?
+                    var btImg: String?
+                    var dateTime: Long?
+                    var during: Double?
+
+                    for (dsp in p0.children.toList().reversed()) {
+
+                        dId = dsp.key
+                        bgImg = dsp.child("background_image").value.toString()
+                        btImg = dsp.child("button_image").value.toString()
+                        dateTime = dsp.child("datetime").value as Long
+                        during = dsp.child("during").value as Double
+
+                        if (dId != null) {
+                            dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
+                        }
+                    }
+
+                    dreamAdapter = DreamItemAdapter(mcontext, dreamList)
+                    rv_dreams.adapter = dreamAdapter
+
                     Log.d("LoadDreams OnResume", "OnResume read")
                 }
             }
@@ -119,8 +141,9 @@ class DreamActivity : AppCompatActivity() {
     }
 
     private fun loadDreams(appUuid: String) {
-        val sortByDatetime = database.child("dream").orderByKey().equalTo(appUuid)
+        val sortByDatetime = database.child("dream").child(appUuid).orderByChild("datetime")
         // 전체 데이터를 가져옴
+
 
         sortByDatetime.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -134,28 +157,27 @@ class DreamActivity : AppCompatActivity() {
                 } else {
                     tv_dream_empty.visibility = TextView.GONE
 
-                    for (dsp in dataSnapshot.children) {
-                        var dId: String?
-                        var bgImg: String?
-                        var btImg: String?
-                        var dateTime: Long?
-                        var during: Double?
+                    var dId: String?
+                    var bgImg: String?
+                    var btImg: String?
+                    var dateTime: Long?
+                    var during: Double?
 
-                        dsp.children.forEach { it ->
-                            dId = it.key
-                            bgImg = it.child("background_image").value.toString()
-                            btImg = it.child("button_image").value.toString()
-                            dateTime = it.child("datetime").value as Long
-                            during = it.child("during").value as Double
+                    for (dsp in dataSnapshot.children.toList().reversed()) {
 
-                            if (dId != null) {
-                                dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
-                            }
+                        dId = dsp.key
+                        bgImg = dsp.child("background_image").value.toString()
+                        btImg = dsp.child("button_image").value.toString()
+                        dateTime = dsp.child("datetime").value as Long
+                        during = dsp.child("during").value as Double
 
+                        if (dId != null) {
+                            dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
                         }
-                        dreamAdapter = DreamItemAdapter(mcontext, dreamList)
-                        rv_dreams.adapter = dreamAdapter
                     }
+
+                    dreamAdapter = DreamItemAdapter(mcontext, dreamList)
+                    rv_dreams.adapter = dreamAdapter
                 }
 
             }
