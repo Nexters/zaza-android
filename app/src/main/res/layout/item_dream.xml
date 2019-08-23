@@ -18,16 +18,16 @@
             android:layout_height="92dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginBottom="4dp"
+            android:src="@drawable/bg_white"
             app:civ_border="true"
             app:civ_border_color="#91959a"
             app:civ_border_width="0.2dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/bg_white" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="65dp"
+            android:layout_marginBottom="50dp"
             android:fontFamily="@font/gilroy_bold"
             android:text="August 8"
             android:textAlignment="center"
