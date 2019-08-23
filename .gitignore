@@ -54,6 +54,7 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+.idea/codeStyles/Project.xml
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -76,5 +77,3 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 !/.idea/encodings.xml
-
-/.idea/codeStyles/Project.xml
