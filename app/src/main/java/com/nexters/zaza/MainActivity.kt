@@ -146,7 +146,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             }
 
             override fun onTick(p0: Long) {
-//                Log.v("Main", "* * * ${p0}")
                 text_main_sleep_guide.text = getString(R.string.sleep_mode_bottom_guide, countTime)
                 countTime = countTime - 1
             }
@@ -224,6 +223,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
         text_main_time.visibility = View.GONE
         text_main_stop_swatch.visibility = View.VISIBLE
+        view_main_bottom.visibility = View.VISIBLE
 
         layout_main_root.background = ContextCompat.getDrawable(this, R.drawable.bg_gradient_black)
         image_main_alarm.visibility = View.GONE
@@ -270,6 +270,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
 
         text_main_time.visibility = View.VISIBLE
         text_main_stop_swatch.visibility = View.GONE
+        view_main_bottom.visibility = View.GONE
 
         layout_main_root.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         image_main_alarm.visibility = View.VISIBLE
