@@ -6,7 +6,7 @@
 
         <variable
                 name="alarmDialogView"
-                type="com.teamnexters.zaza.ui.alarm.AlarmBottomSheetDialog" />
+                type="com.nexters.zaza.ui.alarm.AlarmBottomSheetDialog" />
 
         <!--선택 선언 3_3 (ViewModel 사용 시)-->
         <!--<variable-->
@@ -31,7 +31,7 @@
             >
     </TimePicker>
 
-    <com.teamnexters.zaza.ui.alarm.view.CustomTimePickerView
+    <com.nexters.zaza.ui.alarm.view.CustomTimePickerView
             android:id="@+id/timepicker_custom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/view_btns">
 
-    </com.teamnexters.zaza.ui.alarm.view.CustomTimePickerView>
+    </com.nexters.zaza.ui.alarm.view.CustomTimePickerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_btns"
