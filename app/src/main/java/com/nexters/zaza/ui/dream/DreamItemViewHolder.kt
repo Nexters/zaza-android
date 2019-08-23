@@ -29,21 +29,6 @@ class DreamItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
     fun bind(dreamitem: DreamItem, context: Context) {
 
-        Picasso.get().load(dreamitem.button_img).resize(92,92).into(object : Target {
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                Log.d("image", "Prepare Load")
-            }
-
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                Log.d("image", "Failed")
-            }
-
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                Log.d("image", "Imaged Loaded")
-                civ.setImageDrawable(BitmapDrawable(context.resources, bitmap))
-            }
-        })
-
         date?.text = sdf.format(dreamitem.date)
     }
 
