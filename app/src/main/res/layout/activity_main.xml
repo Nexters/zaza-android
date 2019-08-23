@@ -6,7 +6,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="sample" type="com.teamnexters.zaza.sample.SampleViewModel"/>
+        <variable name="sample" type="com.nexters.zaza.sample.SampleViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
