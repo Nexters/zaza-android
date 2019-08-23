@@ -44,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (isSleep.equals("sleep")) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.MINUTE, 30)
-            //alarmUtil.afterThirtyAlarm(context, calendar)
+            alarmUtil.afterThirtyAlarm(context, calendar)
             intent.putExtra("SLEEP_READY", "SLEEP_READY")
             val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
             if (powerManager.isInteractive)
