@@ -8,11 +8,11 @@
 
         <variable
                 name="alarm"
-                type="com.teamnexters.zaza.ui.alarm.AlarmActivity"/>
+                type="com.nexters.zaza.ui.alarm.AlarmActivity"/>
 
         <variable
                 name="dialog"
-                type="com.teamnexters.zaza.ui.alarm.AlarmBottomSheetDialog"/>
+                type="com.nexters.zaza.ui.alarm.AlarmBottomSheetDialog"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
