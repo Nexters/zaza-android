@@ -103,6 +103,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         when (item?.itemId) {
             android.R.id.home -> {
                 finish()
+                ACTIVE = false
                 return true
             }
             R.id.action_delete -> {
@@ -120,6 +121,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         val resultIntent = Intent()
         resultIntent.putExtra("itemPos", itemPos)
         setResult(Activity.RESULT_OK, resultIntent)
+        ACTIVE = false
         finish()
     }
 
