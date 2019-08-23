@@ -33,9 +33,21 @@ class MemberActivity : AppCompatActivity(), View.OnClickListener {
         when (v) {
             image_member_jk, text_member_jk -> {
                 webview_member.loadUrl("https://www.instagram.com/bingocake/")
-                webview_member.visibility = View.VISIBLE
+            }
+
+            image_member_yj, text_member_yj -> {
+                webview_member.loadUrl("https://www.youtube.com/channel/UCuOEtV1iR-t0aGqqcOyOxpA")
+            }
+
+            image_member_jh, text_member_jh -> {
+                webview_member.loadUrl("https://www.facebook.com/rick931022")
+            }
+
+            image_member_dk, text_member_dk -> {
+                webview_member.loadUrl("https://www.facebook.com/thequrian")
             }
         }
+        webview_member.visibility = View.VISIBLE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

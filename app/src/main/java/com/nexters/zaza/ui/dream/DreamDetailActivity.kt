@@ -80,6 +80,13 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         tv_wakeTime.text = wakeTime
         tv_duringTime.text = sdf1.format(duringTime)
 //        tv_duringTime.text = sdf.format(during*360000)
+
+
+//        if (backgroundImg != "") {
+//            val resourceId = this.resources.getIdentifier(backgroundImg, "drawable", this.packageName)
+//            layout_dream_detail.setBackgroundResource(resourceId)
+//        }
+//        Picasso.get().load(backgroundImg).into(imageLoadTarget)
     }
 
     override fun onResume() {

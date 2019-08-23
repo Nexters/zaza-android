@@ -27,9 +27,15 @@ class CustomTimePickerView@JvmOverloads constructor(
         hourPicker = v.findViewById(R.id.picker_hour)
         hourPicker.maxValue = 23
         hourPicker.minValue = 0
+        hourPicker.setFormatter {
+            String.format("%02d", it)
+        }
         minutePicker = v.findViewById(R.id.picker_minute)
         minutePicker.maxValue = 59
         minutePicker.minValue = 0
+        minutePicker.setFormatter { i->
+            String.format("%02d", i)
+        }
 
 
     }
@@ -42,5 +48,12 @@ class CustomTimePickerView@JvmOverloads constructor(
         return minutePicker.value
     }
 
+    fun setHour(time: Int){
+        hourPicker.value = time
+    }
+
+    fun setMinute(time: Int){
+        minutePicker.value = time
+    }
 
 }
