@@ -67,18 +67,4 @@ class DreamItemAdapter : RecyclerView.Adapter<DreamItemViewHolder> {
         }
 
     }
-
-//    override fun onBindViewHolder(holder: DreamItemViewHolder, position: Int, payloads: MutableList<Any>) {
-//        if(payloads.isEmpty()) {
-//            super.onBindViewHolder(holder, position, payloads)
-//        }else{
-//            for (payload in payloads) {
-//                if (payload is String) {
-//                    if (TextUtils.equals(payload, "update") && holder is DreamItemViewHolder) {
-//                        notifyItemChanged(position)
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

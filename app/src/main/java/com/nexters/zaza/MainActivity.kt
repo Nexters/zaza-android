@@ -354,8 +354,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0) {
             image_main_dream, text_main_dream -> {
-                val sampleIntent = Intent(this, DreamActivity::class.java)
-                startActivity(sampleIntent)
+                if(!DreamActivity.ACTIVE) {
+                    val sampleIntent = Intent(this, DreamActivity::class.java)
+                    startActivity(sampleIntent)
+                }
             }
             text_main_logo -> {
 //                val nextIntent = Intent(this, ImageActivity::class.java)
