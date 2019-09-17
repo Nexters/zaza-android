@@ -22,6 +22,9 @@ class DreamActivity : AppCompatActivity() {
     private var appUuid = ""
     private val mcontext = this
     private var dreamAdapter: DreamItemAdapter? = null
+    companion object {
+        var ACTIVE = false      //실행 여부 체크
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,8 @@ class DreamActivity : AppCompatActivity() {
 
         rv_dreams.layoutManager = gm
         rv_dreams.setHasFixedSize(true)
+
+        ACTIVE = true
     }
 
 
@@ -165,10 +170,14 @@ class DreamActivity : AppCompatActivity() {
                     for (dsp in dataSnapshot.children.toList().reversed()) {
 
                         dId = dsp.key
-                        bgImg = dsp.child("background_image").value.toString()
-                        btImg = dsp.child("button_image").value.toString()
-                        dateTime = dsp.child("datetime").value as Long
-                        during = dsp.child("during").value as Double
+                        bgImg = dsp.child("background_image").value?.toString() ?: ""
+                        btImg = dsp.child("button_image").value?.toString() ?: ""
+                        dateTime = (dsp.child("datetime").value ?: 0) as Long
+                        during = if(dsp.child("during").value == 0L){
+                            0.0
+                        }else{
+                            dsp.child("during").value as Double
+                        }
 
                         if (dId != null) {
                             dreamList.add(DreamItem(dId!!, btImg, bgImg, dateTime, during))
@@ -183,6 +192,9 @@ class DreamActivity : AppCompatActivity() {
 
         })
 
-
+    }
+    override fun onDestroy() {
+        ACTIVE = false
+        super.onDestroy()
     }
 }
