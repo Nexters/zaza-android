@@ -1,16 +1,19 @@
 package com.nexters.zaza.ui.alarm
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.nexters.zaza.R
 import com.nexters.zaza.base.BaseActivity
 import com.nexters.zaza.databinding.ActivityAlarmBinding
 import com.nexters.zaza.ui.alarm.data.vo.AlarmVO
+import com.nexters.zaza.ui.dream.CustomDreamDialog
 import com.nexters.zaza.util.SharedUtil
 import com.nexters.zaza.util.alarm.AlarmUtil
 import com.nexters.zaza.util.getAlarm
@@ -23,6 +26,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
 
     override val layoutResourceId: Int = R.layout.activity_alarm
     val TAG = this.javaClass.simpleName
+    lateinit var customDreamDialog: CustomDreamDialog
 
     val alarmVM: AlarmViewModel by lazy {
         ViewModelProviders.of(this).get(AlarmViewModel::class.java)
@@ -33,6 +37,14 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
 
     fun initStartView() {
         sharedUtil = SharedUtil(this)
+        customDreamDialog = CustomDreamDialog(this, View.OnClickListener {
+            customDreamDialog.cancel()
+            finish()
+        }, View.OnClickListener {
+            saveAlarm()
+            finish()
+        }, "예", "아니오", "저장하지 않고 나가시겠습니까?")
+
     }
 
     /**
@@ -40,6 +52,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
      * 데이터 바인딩 및 rxjava 설정.
      * ex) rxjava observe, databinding observe..
      */
+    @SuppressLint("SetTextI18n")
     fun initDataBinding() {
         alarmVM.mutableAlarmData.observe(this, Observer { alarm ->
 
@@ -71,9 +84,9 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
             if ((alarm.sleepH > alarm.wakeUpH) || ((alarm.sleepH == alarm.wakeUpM) && (alarm.sleepM >= alarm.wakeUpM)))
                 wh += 24
 
-            wh = Math.abs(alarm.sleepH - wh)
+            val diff = Math.abs(alarm.sleepH - wh)
 
-            viewDataBinding.tvSleepTime.text = "+$wh"
+            viewDataBinding.tvSleepTime.text = "+$diff"
 
             val text = sharedUtil.getStringPreference(SharedUtil.ALARM_TEXT, " ")
 
@@ -161,36 +174,9 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
         }
 
         viewDataBinding.btnQuit.setOnClickListener {
-            val weeks = ArrayList<Boolean>()
 
-            weeks.add(viewDataBinding.checkWeekMon.isChecked)
-            weeks.add(viewDataBinding.checkWeekTue.isChecked)
-            weeks.add(viewDataBinding.checkWeekWed.isChecked)
-            weeks.add(viewDataBinding.checkWeekThu.isChecked)
-            weeks.add(viewDataBinding.checkWeekFri.isChecked)
-            weeks.add(viewDataBinding.checkWeekSat.isChecked)
-            weeks.add(viewDataBinding.checkWeekSun.isChecked)
-
-            val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, viewDataBinding.tvSleepHour.text.toString().toInt())
-            calendar.set(Calendar.MINUTE, viewDataBinding.tvSleepMinute.text.toString().toInt())
-            calendar.add(Calendar.MINUTE, -30)
-
-            val alarmVO = AlarmVO(
-                weeks,
-                viewDataBinding.chckVibrate.isChecked,
-                viewDataBinding.checkFive.isChecked,
-                viewDataBinding.tvWakeHour.text.toString().toInt(),
-                viewDataBinding.tvWakeMinute.text.toString().toInt(),
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE)
-            )
-            alarmVM.updateAlarm(alarmVO)
-            alarmUtil.registAlarm(this, alarmVO)
-
-            sharedUtil.saveStringPreference(SharedUtil.ALARM_TEXT, viewDataBinding.etAlarm.text.toString())
-
-            finish()
+            customDreamDialog.show()
+//            finish()
         }
 
         viewDataBinding.checkWeekFri.setOnCheckedChangeListener(this)
@@ -203,6 +189,7 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
 
 
     }
+
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (isChecked) {
@@ -225,4 +212,42 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
         initDataBinding()
         initAfterBinding()
     }
+
+    fun saveAlarm(){
+        val weeks = ArrayList<Boolean>()
+
+        weeks.add(viewDataBinding.checkWeekMon.isChecked)
+        weeks.add(viewDataBinding.checkWeekTue.isChecked)
+        weeks.add(viewDataBinding.checkWeekWed.isChecked)
+        weeks.add(viewDataBinding.checkWeekThu.isChecked)
+        weeks.add(viewDataBinding.checkWeekFri.isChecked)
+        weeks.add(viewDataBinding.checkWeekSat.isChecked)
+        weeks.add(viewDataBinding.checkWeekSun.isChecked)
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, viewDataBinding.tvSleepHour.text.toString().toInt())
+        calendar.set(Calendar.MINUTE, viewDataBinding.tvSleepMinute.text.toString().toInt())
+        calendar.add(Calendar.MINUTE, -30)
+
+        val alarmVO = AlarmVO(
+            weeks,
+            viewDataBinding.chckVibrate.isChecked,
+            viewDataBinding.checkFive.isChecked,
+            viewDataBinding.tvWakeHour.text.toString().toInt(),
+            viewDataBinding.tvWakeMinute.text.toString().toInt(),
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE)
+        )
+        alarmVM.updateAlarm(alarmVO)
+        alarmUtil.registAlarm(this, alarmVO)
+
+        sharedUtil.saveStringPreference(SharedUtil.ALARM_TEXT, viewDataBinding.etAlarm.text.toString())
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        saveAlarm()
+        Toast.makeText(this, "저장되었습니다.",Toast.LENGTH_SHORT).show()
+    }
+
 }

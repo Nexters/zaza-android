@@ -126,10 +126,11 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onStop() {
         super.onStop()
+        ACTIVE = false
     }
 
     override fun onDestroy() {
-        ACTIVE = false
+//        ACTIVE = false
         super.onDestroy()
     }
 }
