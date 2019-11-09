@@ -1,79 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
 
         <variable
                 name="alarmDialogView"
-                type="com.nexters.zaza.ui.alarm.AlarmBottomSheetDialog" />
+                type="com.nexters.zaza.ui.alarm.AlarmBottomSheetDialog"/>
 
         <!--선택 선언 3_3 (ViewModel 사용 시)-->
         <!--<variable-->
-                <!--name="alarmDialogVM"-->
-                <!--type="" />-->
+        <!--name="alarmDialogVM"-->
+        <!--type="" />-->
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingRight="28dp"
-        android:paddingLeft="28dp">
-
-    <TimePicker
-            android:id="@+id/tp_alamr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:timePickerMode="spinner"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            >
-    </TimePicker>
-
-    <com.nexters.zaza.ui.alarm.view.CustomTimePickerView
-            android:id="@+id/timepicker_custom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/view_btns">
-
-    </com.nexters.zaza.ui.alarm.view.CustomTimePickerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/view_btns"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/timepicker_custom">
-        <Button
-                android:id="@+id/btn_dialog_alarm_cancel"
+            android:layout_height="match_parent" >
+
+        <TimePicker
+                android:id="@+id/tp_alamr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="취소"
-                android:textSize="17sp"
-                android:fontFamily="@font/apple_sd_gothic_neo_semi_bold"
-                android:textColor="@color/purple_dark"
-                android:background="@android:color/transparent"
+                android:timePickerMode="spinner"
+                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        <Button
-                android:id="@+id/btn_dialog_alarm_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="완료"
-                android:textSize="17sp"
-                android:fontFamily="@font/apple_sd_gothic_neo_semi_bold"
-                android:textColor="@color/purple_dark"
-                android:background="@android:color/transparent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+        </TimePicker>
+
+        <com.nexters.zaza.ui.alarm.view.CustomTimePickerView
+                android:id="@+id/timepicker_custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp"
+                app:layout_constraintBottom_toTopOf="@id/view_btns"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+        </com.nexters.zaza.ui.alarm.view.CustomTimePickerView>
+
+        <LinearLayout
+                android:id="@+id/view_btns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/timepicker_custom">
+
+            <Button
+                    android:id="@+id/btn_dialog_alarm_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/apple_sd_gothic_neo_semi_bold"
+                    android:text="취소"
+                    android:textColor="@color/purple_dark"
+                    android:textSize="17sp" />
+            <Button
+                    android:id="@+id/btn_dialog_alarm_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/apple_sd_gothic_neo_semi_bold"
+                    android:text="완료"
+                    android:textColor="@color/purple_dark"
+                    android:textSize="17sp" />
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

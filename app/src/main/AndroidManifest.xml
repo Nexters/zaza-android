@@ -14,18 +14,33 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.nexters.zaza.MemberActivity">
-        </activity>
-        <activity android:name="com.nexters.zaza.ui.dream.DreamDetailActivity"/>
-        <activity android:name="com.nexters.zaza.sample.firebase.DatabaseActivity">
-        </activity>
-        <activity android:name="com.nexters.zaza.sample.firebase.ImageActivity">
-        </activity>
-        <activity android:name="com.nexters.zaza.ui.dream.DreamActivity" android:launchMode="singleTop"/>
+        <activity android:name="com.nexters.zaza.MemberActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name="com.nexters.zaza.ui.alarm.AlarmActivity">
-        </activity>
-        <activity android:name="com.nexters.zaza.MainActivity">
+        <activity android:name="com.nexters.zaza.ui.dream.DreamDetailActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name="com.nexters.zaza.sample.firebase.DatabaseActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name="com.nexters.zaza.sample.firebase.ImageActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name="com.nexters.zaza.ui.dream.DreamActivity"
+                  android:launchMode="singleTop"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name="com.nexters.zaza.ui.alarm.AlarmActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="com.nexters.zaza.MainActivity"
+                  android:configChanges="orientation"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
