@@ -1,14 +1,11 @@
 package com.nexters.zaza.ui.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.nexters.zaza.R
-import kotlinx.android.synthetic.main.dialog_sleep_clock.*
 import kotlinx.android.synthetic.main.dialog_sleep_clock.view.*
 
 class SleepClockDialog : DialogFragment() {
