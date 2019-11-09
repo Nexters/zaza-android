@@ -349,13 +349,14 @@
             <EditText
                     android:id="@+id/et_alarm"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="bottom"
                     android:hint="취침알람시 보여줄 한줄 노티입니다."
                     android:inputType="none"
                     android:maxLength="140"
-                    android:lines="1"
-                    android:singleLine = "true"
+                    android:maxLines="2"
+                    android:lines="2"
                     android:textColor="@color/gray"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@id/tv_memo"/>

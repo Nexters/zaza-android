@@ -3,6 +3,8 @@ package com.nexters.zaza.ui.alarm
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
@@ -54,6 +56,27 @@ class AlarmActivity() : BaseActivity<ActivityAlarmBinding>(), CompoundButton.OnC
      */
     @SuppressLint("SetTextI18n")
     fun initDataBinding() {
+
+        viewDataBinding.etAlarm.addTextChangedListener(object : TextWatcher {
+            var previousString =" "
+            override fun onTextChanged(s:CharSequence , start:Int, before:Int, count :Int) {
+            }
+
+            override fun beforeTextChanged(s:CharSequence , start:Int, count:Int, after:Int)
+            {
+                previousString= s.toString();
+            }
+
+            override fun afterTextChanged(s: Editable)
+            {
+                if (viewDataBinding.etAlarm.getLineCount() >= 4)
+                {
+                    viewDataBinding.etAlarm.setText(previousString);
+                    viewDataBinding.etAlarm.setSelection(viewDataBinding.etAlarm.length());
+                }
+            }
+        })
+
         alarmVM.mutableAlarmData.observe(this, Observer { alarm ->
 
             Log.e(TAG, "getAlarm")
