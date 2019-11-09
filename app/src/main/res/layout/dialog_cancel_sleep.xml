@@ -10,6 +10,7 @@
         android:background="@drawable/bg_gradient_black_r21">
 
     <TextView
+            android:id="@+id/text_cancel_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
