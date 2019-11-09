@@ -81,6 +81,7 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
         tv_wakeTime.text = wakeTime
         tv_duringTime.text = sdf1.format(duringTime)
 
+        ACTIVE = true
     }
 
     override fun onResume() {
@@ -117,8 +118,6 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onStart() {
-        ACTIVE = true
-
         val backgroundImg = intent.extras.getString("backgroundImg")
         Picasso.get().load(backgroundImg).into(layout_dream_detail.tag as Target)
 
@@ -126,12 +125,12 @@ class DreamDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onStop() {
-        ACTIVE = false
         super.onStop()
+        ACTIVE = false
     }
 
     override fun onDestroy() {
-        ACTIVE = false
+//        ACTIVE = false
         super.onDestroy()
     }
 }

@@ -10,6 +10,7 @@
         android:background="@drawable/bg_delete_dream">
 
     <TextView
+            android:id="@+id/tv_content_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
