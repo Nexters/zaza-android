@@ -227,7 +227,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
             }
         }
 
-        cancelSleepDialog = CancelSleepDialog.getInstance {
+        cancelSleepDialog = CancelSleepDialog.getInstance(totalSec) {
             if (it) {
                 finishSleepMode()
             } else {
@@ -323,7 +323,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener {
         openDialogStatus = false
         if (isSleepMode) {
             // 서버에서 이미지를 받고 난 뒤 FB에 업로드
-            getImage()
+            if (totalSec >= (2 * 60 * 60)) {
+                // 2시간 이상일 때만 이미지 생성
+                getImage()
+            }
             isSleepMode = false
         }
     }
