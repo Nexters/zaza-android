@@ -215,11 +215,12 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                     android:id="@+id/view_checks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/tv_repeat">
 
                 <CheckBox
@@ -228,15 +229,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="M"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/check_week_tue"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_tue"
@@ -244,14 +242,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="T"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/check_week_mon"
-                        app:layout_constraintRight_toLeftOf="@id/check_week_wed"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_wed"
@@ -259,14 +255,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="W"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/check_week_thu"
-                        app:layout_constraintStart_toEndOf="@id/check_week_tue"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_thu"
@@ -274,14 +268,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="T"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/check_week_fri"
-                        app:layout_constraintStart_toEndOf="@id/check_week_wed"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_fri"
@@ -289,14 +281,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="F"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/check_week_sat"
-                        app:layout_constraintStart_toEndOf="@id/check_week_thu"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_sat"
@@ -304,14 +294,12 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="S"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/check_week_sun"
-                        app:layout_constraintStart_toEndOf="@id/check_week_fri"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
                 <CheckBox
                         android:id="@+id/check_week_sun"
@@ -319,16 +307,14 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:button="@android:color/transparent"
+                        android:background="@null"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="S"
                         android:textColor="@color/gray_light"
                         android:textSize="19sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/check_week_sat"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:layout_weight="1" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <TextView
                     android:id="@+id/tv_memo"
